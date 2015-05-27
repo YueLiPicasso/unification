@@ -1,0 +1,16 @@
+format: imports (importing.hs: imported.hs)
+
+imports (Substitution: ReadPrintTerms (Term))
+imports (UnifyTerms: Substitution, ReadPrintTerms (Term(..)))
+
+note: UnifyTerms need Term, it needs to import ReadPrintTerms
+in order to access Term. Although it imports Substitution which
+also imports ReadPrintTerms (Term), leaving ReadPrintTerms
+not imported cause error during compilation which states that
+"Term" is not in scope of UnifyTerms. This means import a module can
+only make available the names in the export list of the module.
+Module "UnifyTerms" uses value constructors of the type Term so this requires it to
+import ReadPrintTerms (Term (..)) rather than just ReadPrintTerms (Term). This makes
+difference: Term(..) mean the type name and all its value constructors's names. When
+"(..)" is omitted the names of "Term"'s value constructors will not be in scope of the
+importing module.

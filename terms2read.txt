@@ -1,0 +1,13 @@
+Constant "yue li"
+Constant "katya komendantskaya"
+Constant "frantisek farka"
+Constant "peng fu"
+
+Variable "Student1"
+Variable "Student2"
+Variable "Student3"
+Variable "Student4"
+
+Function "supervisor_of" 1 [Constant "yue li"]
+Function "friend_of" 1 [Variable "Student1"]
+Function "hobby_of" 4 [Constant "yue li", Constant "peng fu", Function "second_supervisor_of" 1 [Constant "yue li"], Constant "katya"]
