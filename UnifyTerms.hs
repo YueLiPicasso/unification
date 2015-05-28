@@ -2,9 +2,11 @@ module UnifyTerms
    (
      unifyTerms
     , applySubs
+    , occursAt
+    , unifyTermList
    ) where
 
-import Substitution
+import Substitution (Substitution, reduceSubs)
 import ReadPrintTerms (Term (..))
 import Data.Maybe (fromJust)
 -----------------------------------------------------------
