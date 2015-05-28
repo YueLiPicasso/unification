@@ -1,7 +1,7 @@
 format: imports (importing.hs: imported.hs)
 
 imports (Substitution: ReadPrintTerms (Term))
-imports (UnifyTerms: Substitution, ReadPrintTerms (Term(..)))
+imports (UnifyTerms: Substitution, ReadPrintTerms (Term(..)), Data.Maybe(fromJust))
 
 note: UnifyTerms need Term, it needs to import ReadPrintTerms
 in order to access Term. Although it imports Substitution which
