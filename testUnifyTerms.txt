@@ -1,0 +1,71 @@
+In order to test the project the UnifyTerms module shall be loaded into GHCi.
+
+Then the function "unifyTerms" can be called with two terms as its argument and it 
+will return MGU (I don't know whether it is MGU but it looks reasonable)
+
+Example function calls:
+
+ghci> unifyTerms (Constant "yueli") (Constant "joo")
+Nothing
+
+ghci> unifyTerms (Constant "joo") (Constant "joo")
+Just []
+
+ghci> unifyTerms (Variable "Y") (Variable "Joo")
+Just [("Joo","Y")]
+
+ghci> unifyTerms (Variable "Y") (Variable "Y")
+Just []
+
+ghci> unifyTerms (Variable "Y") (Constant "poo")
+Just [("poo","Y")]
+
+ghci> unifyTerms (Constant "yueli") (Variable "X")
+Just [("yueli","X")]
+
+ghci> unifyTerms (Variable "Y") (Function "foo" 2 [Variable "Y", Constant "lol"])
+--i.e. unify Y with foo(Y,lol)
+Nothing
+
+ghci> unifyTerms (Variable "Y") (Function "foo" 2 [Variable "X", Constant "lol"])
+--i.e. unify Y with foo(X,lol)
+Just [("foo"["X","lol"],"Y")]
+
+ghci> unifyTerms (Function "foo" 2 [Variable "X", Constant "lol"]) (Variable "Y") 
+Just [("foo"["X","lol"],"Y")]
+
+ghci> unifyTerms (Function "foo" 2 [Variable "Y", Constant "lol"]) (Variable "Y") 
+Nothing
+
+ghci> unifyTerms (Function "foo" 2 [Variable "Y", Constant "lol"]) (Function "foo" 2 [Variable "Y", Constant "lol"])
+Just []
+
+ghci> unifyTerms (Function "bar" 2 [Variable "Y", Constant "lol"]) (Function "foo" 2 [Variable "Y", Constant "lol"])
+Nothing
+
+ghci> unifyTerms (Function "foo" 3 [Variable "Y", Constant "lol"]) (Function "foo" 2 [Variable "Y", Constant "lol"])
+Nothing
+
+ghci> unifyTerms (Function "foo" 2 [Variable "X", Constant "lol"]) (Function "foo" 2 [Variable "Y", Constant "lol"])
+--i.e. unifyfoo(X,lol) with foo(Y,lol)
+Just [("Y","X")]
+
+ghci> unifyTerms (Function "foo" 2 [Variable "X", Variable "Y"]) (Function "foo" 2 [Variable "Y", Variable "Z"])
+--i.e. unify foo(X,Y) with foo(Y,Z)
+Just [("Y","X"),("Z","Y")]
+
+ghci> unifyTerms (Function "foo" 3 [Variable "X", Constant "a", Function "goo" 1 [Variable "Y"]]) (Function "foo" 3 [Constant "fred",Constant "a",Function "goo" 1 [Variable "Z"]])
+--i.e. unify foo(X,a,goo(Y)) with foo(fred, a, goo(Z))
+Just [("fred","X"),("Z","Y")]
+
+ghci> unifyTerms (Function "foo" 3 [Variable "X", Constant "a", Function "goo" 1 [Variable "Y"]]) (Function "foo" 3 [Variable "Z",Constant "a",Function "goo" 1 [Function "moo" 1 [Variable "Z"]]])
+--i.e. unify foo(X,a,goo(Y)) with foo(Z,a,goo(moo(Z)))
+Just [("Z","X"),("moo"["Z"],"Y")]
+
+ghci> unifyTerms (Function "foo" 3 [Variable "X", Constant "a", Function "goo" 1 [Variable "X"]]) (Function "foo" 3 [Variable "Z",Constant "a",Function "goo" 1 [Function "moo" 1 [Variable "Z"]]])
+--i.e. unify foo(X,a,goo(X)) with foo(Z,a,goo(moo(Z)))
+Nothing
+
+
+
+
