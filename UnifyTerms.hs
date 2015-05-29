@@ -1,12 +1,9 @@
 module UnifyTerms
    (
      unifyTerms
-    , applySubs
-    , occursAt
-    , unifyTermList
    ) where
 
-import Substitution (Substitution, reduceSubs)
+import Substitution
 import ReadPrintTerms (Term (..))
 import Data.Maybe (fromJust)
 -----------------------------------------------------------
@@ -70,7 +67,7 @@ unifyTermList (t11:tms1@(t12:t1s)) (t21:tms2@(t22:t2s))
             subs3 = comboSubs subs1 subs2
 
 unifyTermList _ _ = undefined
-----------------------------------------------------------------
+-------------------------------------------------------------------
 applySubs :: Substitution -> [Term] -> [Term]
 -- the context of using this function provides that termsList is not empty
 applySubs [] termsList         = termsList
@@ -88,9 +85,3 @@ applyOneSubs s@(term, Variable _) (Function n a tms) =
     Function n a (map (applyOneSubs s) tms)
 applyOneSubs _ _ = undefined
 ----------------------------------------------------------------
-comboSubs :: Maybe Substitution -> Maybe Substitution -> Maybe Substitution
---the context of this function makes the first argument be (Just _)
-comboSubs _ Nothing                     = Nothing
-comboSubs subs1 (Just [])               = subs1
-comboSubs (Just []) subs2@(Just (s:ss)) = subs2
-comboSubs (Just s1@(_:_)) (Just s2@(_:_))   = Just (reduceSubs (s1 ++ s2))

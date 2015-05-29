@@ -4,6 +4,7 @@ module ReadPrintTerms
      , readPrintTerms
      , readTerms
      , printTerms
+     , isVariable
      ) where
 --A file in which each line is a term has already been converted
 --into a string, the readPrintTerms function stores the terms
@@ -53,3 +54,7 @@ printTerms listOfTerms =
       termsLines = map show listOfTerms
       output = unlines termsLines
   in output
+--------------------------------------------------------------------
+isVariable :: Term -> Bool
+isVariable (Variable _) = True
+isVariable _ = False
