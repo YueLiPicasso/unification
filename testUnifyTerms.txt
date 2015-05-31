@@ -1,7 +1,7 @@
 In order to test the project the UnifyTerms module shall be loaded into GHCi.
 
 Then the function "unifyTerms" can be called with two terms as its argument and it 
-will return MGU (I don't know whether it is MGU but it looks reasonable)
+will return MGU 
 
 Example function calls:
 
