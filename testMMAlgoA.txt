@@ -1,0 +1,21 @@
+(Term,Term) tuple stand for an equation
+
+(Function "afoo" 1 [Constant "a"], Variable "X")
+
+((Constant "joo"), (Constant "joo"))
+
+((Variable "Y"), (Variable "Joo"))
+
+((Variable "Y"), (Variable "Y"))
+
+((Variable "Y"), (Constant "poo"))
+
+((Constant "yueli"), (Variable "X"))
+
+((Variable "Y"), (Function "foo" 2 [Variable "Y", Constant "lol"]))
+
+((Function "foo" 2 [Variable "X", Constant "lol"]), (Variable "Y"))
+
+[(Function "afoo" 1 [Constant "a"], Variable "X"), ((Constant "joo"), (Constant "joo")), ((Variable "Y"), (Variable "Joo")), ((Variable "Y"), (Variable "Y")), ((Variable "Y"), (Constant "poo")), ((Constant "yueli"), (Variable "X")), ((Variable "Y"), (Function "foo" 2 [Variable "Y", Constant "lol"])) ]
+
+((Function "foo" 2 [Variable "X", Constant "lol"]), (Function "foo" 2 [Variable "Y", Constant "lol"]))

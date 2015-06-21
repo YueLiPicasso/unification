@@ -5,6 +5,7 @@ module ReadPrintTerms
      , readTerms
      , printTerms
      , isVariable
+     , occursAt
      ) where
 --A file in which each line is a term has already been converted
 --into a string, the readPrintTerms function stores the terms
@@ -28,6 +29,7 @@ data Term = Constant String
 instance Show Term where
  show (Constant xs) = show xs
  show (Variable xs) = show xs
+ show (Function name 0 []) = show name
  show (Function name arity xs) = (show name) ++ (show xs)
 -----------------------------------------------------------------
 readPrintTerms :: String -> String
@@ -39,7 +41,7 @@ readPrintTerms input =
       termsLines = map show listOfTerms
       output = unlines termsLines
   in output
-
+--------------------------------------------------------------
 readTerms :: String -> [Term]
 readTerms input =
   -- get input file and return a list of terms as [Term]
@@ -58,3 +60,12 @@ printTerms listOfTerms =
 isVariable :: Term -> Bool
 isVariable (Variable _) = True
 isVariable _ = False
+----------------------------------------------------------------------
+occursAt :: Term -> Term -> Bool
+v@(Variable str) `occursAt` (Function _ _ tms) = or (map (occursAt v) tms)
+(Variable str1 ) `occursAt` (Variable str2 )
+       | str1 == str2      = True
+       | otherwise         = False
+(Variable _ ) `occursAt` (Constant _ ) = False
+_ `occursAt` _ = undefined
+---------------------------------------------------------------
