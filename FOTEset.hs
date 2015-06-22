@@ -4,7 +4,7 @@ module FOTEset
    , FOTEset
    ) where
 
-import ReadPrintTerms (Term)
+import ReadPrintTerms (Term(..), occursAt)
 
 -- FOTEset stands for First Order Term Equations set
 

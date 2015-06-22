@@ -149,54 +149,113 @@ termReduction = concat . map reduceFOTE
 -- a variable that occurs somewhere else in the set; t /= x; if x occurs in t return
 -- fail othwise perform variable elimination
 
+--------------------------------------------------------------------------------
 
+foteHasGoodForm :: FOTE -> Bool
 
-chooseFOTE4VarElimOne :: FOTE -> Bool
+-- tell whether a FOTE has the form x = t where x is a variable and t is not x
+-- i.e. tell whether a FOTE is good form FOTE
 
---tell whether a FOTE has the form x = t where x is a variable and t is not x
-
-chooseFOTE4VarElimOne (Variable l, Variable r) | l /= r       = True
+foteHasGoodForm (Variable l, Variable r) | l /= r       = True
                                                | otherwise    = False
 
-chooseFOTE4VarElimOne (Variable _ , _ )                       = True
+foteHasGoodForm (Variable _ , _ )                       = True
 
-chooseFOTE4VarElimOne _                                       = False
+foteHasGoodForm _                                       = False
+---------------------------------------------------------------------------------
+goodFormFOTEPassesOccursCheck :: FOTE -> Bool
 
+-- Argument specification:
+--     FOTE must has good form (x = t)
+-- Functionality:
+--     see whether x occurs in t
 
+goodFormFOTEPassesOccursCheck (_ , Variable _)  =  True
+goodFormFOTEPassesOccursCheck (_ , Constant _)  =  True
+goodFormFOTEPassesOccursCheck (x , t) | x `occursAt` t = False
+                                      | otherwise      = True
+---------------------------------------------------------------------------------
+variableEliminationFail :: FOTEset -> Bool
+variableEliminationFail = not . all goodFormFOTEPassesOccursCheck . filter foteHasGoodForm
+-- False cases:
+--      No good form FOTE, or
+--      there is good form FOTE(s) and all good form FOTEs pass occurs check
+-- True case:
+--      there is good form FOTE(s) and any of them doesn't pass occurs check
+---------------------------------------------------------------------------------
+occurMoreThanOnceIn :: Term -> FOTEset -> Bool
 
+-- Pre-requisite:
+--     there is good form FOTE(s), and
+--     all good form FOTEs pass occurs check (but may be there is no good form FOTE)
+-- Arguments specification:
+--     Term is the left member of a good form FOTE, which means Term has constructor Variable
+--     FOTEset is the FOTE set to be transformed
+-- Functionality:
+--     tells whether a variable occurs more than once in the FOTEset;
 
+occurMoreThanOnceIn = occurMoreThanOnceInAccum 0
+---------------------------------------------------------------------------------
 
+occurMoreThanOnceInAccum :: Int -> Term -> FOTEset -> Bool
 
-chooseFOTE4VarElimTwo :: FOTE -> Bool
+-- Int is accumulator; n > 1 returns true but n may not be the exact number by which that Term occur in FOTEset
 
--- used after chooseFOTE4VarElimOne, which already made sure the FOTE has
--- form x = t and t is not x (i.e. t is a different variable, a constant or a function);
--- see whether x occur in t
+occurMoreThanOnceInAccum n v ((lm, rm):fotes) =
+    if  v `occursAt` lm  || v `occursAt` rm
+    then occurMoreThanOnceInAccum (n+1) v fotes
+    else occurMoreThanOnceInAccum n v fotes
 
-chooseFOTE4VarElimTwo (_ , Variable _)  =  True
-chooseFOTE4VarElimTwo (_ , Constant _)  =  True
-chooseFOTE4VarElimTwo (x , t) | x `occursAt` t = False
-                              | otherwise      = True
+occurMoreThanOnceInAccum n v [] | n > 1     = True
+                                | otherwise = False
+--------------------------------------------------------------------------------
 
--- chooseFOTE4VarElimTwo (x , t) =
---        case t of
---        Variable _ -> True
---        Constant _ -> True
---        _          -> if x `occursAt` t
---                      then False
---                      else True
+isFoteThatContainsEliminatableVarialeIn :: FOTEset -> FOTE -> Bool
 
+-- Pre-requisite:
+--       there is good form FOTE(s), and
+--       all good form FOTEs (x = t) pass occurs check, and
+--       in the set of good form FOTEs, there exist eliminatable variable
+-- Functionality:
+--           tell whether the FOTE whose left member which is a variable, can be
+--           eliminated from the FOTEset
+isFoteThatContainsEliminatableVarialeIn eSet (v, _) = v `occurMoreThanOnceIn` eSet
+---------------------------------------------------------------------------------
 
+eliminatableVariablesExist :: FOTEset -> FOTEset -> Bool
 
+-- Pre-requisite:
+--       No good form FOTE(s), or
+--       there is good form FOTEs and all good form FOTE pass occurs check
+-- Arguments specification:
+--       First argument is the set of good form FOTEs (maybe empty)
+--       Second argument is a superset of the first argument
+-- Functionality:
+--       this funnction tells are there any FOTE in the first argument whose variable (left member) occurs
+--       more than once in the second argumennt.
+-- True case:
+--       any FOTE from first argument has left member, which is a variable, occurs more than once in the second argument
+-- False cases:
+--       No good form FOTE, or
+--       there is good form FOTE and none of them has a left member, which is a variable, occurs more than once in the second argument
 
+eliminatableVariablesExist [] _  = False
+eliminatableVariablesExist ((v, _ ):fotes) eSet = (v `occurMoreThanOnceIn` eSet) || eliminatableVariablesExist fotes eSet
+---------------------------------------------------------------------------------
 
+variableElimination :: FOTEset -> FOTEset
+-- Pre-requisite :
+--     all good form FOTE (x = t) pass occurs check (but may be there is no good form FOTE)
+--     in the set of good form FOTEs, there exist eliminatable variable
+-- The procedure:
+--     find the first good form FOTE ft that contains eliminatable variable from all good form FOTES
+--     remove ft fro the FOTE set but keep a copy of ft elsewhere; yielding a new FOTE set fts from where one occurance of ft has been removed
+--     regard ft as substitution s_ft (swap);
+--     unzip fts to get ([Term],[Term])
+--     apply s_ft to both lists of terms
+--     zip the resulting two lists where there is no occurance of the variable to be eliminated, yielding FOTE set fts'
+--     add ft back to fts'
 
-
-chooseFOTE4VarElimThree :: FOTE -> FOTEset -> Bool
-
--- used after chooseFOTE4VarElimOne&Two, when a FOTE is determined to be of the form
--- x = t where x is a variable, t is a different variable, a constant or a function and
--- x doesn't occur in t.
--- this funnction check does x occur in other FOTEs of the FOTE set.
-
-    
+variableElimination eSet = eSet'
+   where  goodFormFOTEs = filter foteHasGoodForm eSet
+          goodFormFOTE  = find (isFoteThatContainsEliminatableVarialeIn eSet) goodFormFOTEs
