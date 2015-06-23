@@ -79,24 +79,6 @@ erasable _ = False
 --step c) select any equation of form t = t' where t and t' are not variables
 --if t and t' have different root function symbol return fail otherwiseapply term reduction
 
-reduceableFOTE :: FOTE -> Bool
--- tells whether a FOTE is reducable
-reduceableFOTE ((Constant a), (Constant c)) | a == c    = True
-                                            | otherwise = False
-
-reduceableFOTE ((Function f a ts), (Constant c))
-                      | f == c && a == 0 && (null ts)  =  True
-                      | otherwise                      =  False
-
-reduceableFOTE ((Constant c), (Function f a ts))
-                      | f == c && a == 0 && (null ts)  =  True
-                      | otherwise                      =  False
-
-reduceableFOTE ((Function g b ts1), (Function f a ts2))
-                      | f == g && a == b && ((length ts1) == (length ts2))  =  True
-                      | otherwise         =  False
-reduceableFOTE _ = False
-
 
 singleFail :: FOTE -> Bool
 -- tell whether term reduction shall return failure on an equation
