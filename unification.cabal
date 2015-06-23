@@ -3,21 +3,20 @@
 
 name:                unification
 version:             0.1.0.0
-synopsis:            implementing unification algorithm
-description:         
-homepage:            no
+synopsis:            Haskell Unification
+description:         Martelli's 1976 Algorithm A and one more
 license:             GPL-3
 license-file:        LICENSE
 author:              YueLiPicasso
 maintainer:          YueLiPicasso@users.noreply.github.com
 copyright:           
-category:            Text
+category:            Math
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     UnifyTerms, Substitution, ReadPrintTerms
+  exposed-modules:     UnifyTerms, Substitution, ReadPrintTerms, MMAlgoA, FOTEset
   other-modules:       
   other-extensions:    
   build-depends:       base >=4.7 && <4.8

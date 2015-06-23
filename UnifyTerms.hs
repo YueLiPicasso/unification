@@ -22,14 +22,14 @@ unifyTerms c@(Constant _ ) v@(Variable _ ) = Just [(c,v)]
 unifyTerms v@(Variable _ ) c@(Constant _ ) = Just [(c,v)]
 
 unifyTerms (Constant c ) (Function f a _ )
-            | c /= f          = Nothing
-            | c == f && a > 0 = Nothing
-            | c == f && a = 0 = Just []
+            | c /= f             = Nothing
+            | c == f && a > 0    = Nothing
+            | c == f && a == 0   = Just []
 
 unifyTerms (Function f a _ ) (Constant c )
-            | c /= f          = Nothing
-            | c == f && a > 0 = Nothing
-            | c == f && a = 0 = Just []
+            | c /= f             = Nothing
+            | c == f && a > 0    = Nothing
+            | c == f && a == 0    = Just []
 
 unifyTerms f@(Function _ _ tms ) v@(Variable _ )
      | v `occursAt` f   = Nothing

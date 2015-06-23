@@ -1,6 +1,6 @@
 (Term,Term) tuple stand for an equation
 
-An equation set ready to be copied into GHCi
+
 
 :{
 let eSet = [(Function "afoo" 1 [Constant "a"], Variable "X"),
