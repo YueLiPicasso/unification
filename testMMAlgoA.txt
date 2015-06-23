@@ -1,21 +1,27 @@
 (Term,Term) tuple stand for an equation
 
-(Function "afoo" 1 [Constant "a"], Variable "X")
+An equation set ready to be copied into GHCi
 
-((Constant "joo"), (Constant "joo"))
+:{
+let eSet = [(Function "afoo" 1 [Constant "a"], Variable "X"),
+-- afoo (a) = X
+((Constant "joo"), (Constant "joo")),
+-- joo = joo
+((Variable "Y"), (Variable "J")),
+-- Y = J
+((Variable "Y"), (Variable "Y")),
+-- Y = Y
+((Variable "Y"), (Constant "poo")),
+-- Y = poo
+((Constant "yueli"), (Variable "Z")),
+-- yueli = Z
+((Variable "G"), (Function "foo" 2 [Variable "X", Constant "lol"])),
+-- G = foo (X, lol)
+((Function "foo" 2 [Variable "X", Constant "lol"]), (Variable "G")),
+-- foo (X, lol) = G
+((Function "foo" 2 [Variable "J", Constant "lol"]), (Function "foo" 2 [Variable "Y", Constant "lol"]))]
+-- foo (J, lol) = foo (Y, lol)
+:}
 
-((Variable "Y"), (Variable "Joo"))
-
-((Variable "Y"), (Variable "Y"))
-
-((Variable "Y"), (Constant "poo"))
-
-((Constant "yueli"), (Variable "X"))
-
-((Variable "Y"), (Function "foo" 2 [Variable "Y", Constant "lol"]))
-
-((Function "foo" 2 [Variable "X", Constant "lol"]), (Variable "Y"))
 
 [(Function "afoo" 1 [Constant "a"], Variable "X"), ((Constant "joo"), (Constant "joo")), ((Variable "Y"), (Variable "Joo")), ((Variable "Y"), (Variable "Y")), ((Variable "Y"), (Constant "poo")), ((Constant "yueli"), (Variable "X")), ((Variable "Y"), (Function "foo" 2 [Variable "Y", Constant "lol"])) ]
-
-((Function "foo" 2 [Variable "X", Constant "lol"]), (Function "foo" 2 [Variable "Y", Constant "lol"]))
