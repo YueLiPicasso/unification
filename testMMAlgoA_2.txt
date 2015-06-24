@@ -1,0 +1,18 @@
+[
+(
+   Function "f" 8 [Constant "foo",   Constant "bar",  Function "g" 2 [Variable "Y",Variable "Y"],     Function "h" 0 [],   Variable "X",
+
+ Function "koo" 1 [Function "voo" 1 [Constant "joo"]],        Variable "J",
+
+ Function "in" 1 [Function "inn" 1 [Function "innn" 1 [Function "inn" 1 [Function "inn" 1 [Variable "Hi"]]]]]
+ ]
+
+
+ , Function "f" 8 [Constant "foo",   Variable "X",    Function "g" 2 [Variable "Z",Constant "zoo"],   Constant "h",        Function "bar" 0 [],
+
+ Function "koo" 1 [Variable "V"],                             Function "loo" 0 [],
+
+ Function "in" 1 [Function "inn" 1 [Function "innn" 1 [Function "inn" 1 [Function "inn" 1 [Function "inn" 1 [Constant "hi"]]]]]]
+ ]
+ )
+]
