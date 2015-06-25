@@ -1,5 +1,15 @@
-module GenerateFOTE where
+module GenerateFOTE
+(
+  randomName
+, sizedTerm
+, randomConstant
+, randomVariable
+, randomFunction
+, unifiableFOTEGen
+) where
+
 -- generate unifiable FOTEs
+
 import Data.List
 import Test.QuickCheck
 import MMAlgoA
@@ -32,6 +42,7 @@ randomVariable = do
         vname  <- randomName 'v'
         return (Variable vname)
 
+
 vUnifiableFOTEv :: Gen NewFOTE -- Variable symbol = Variable Symbol
 vUnifiableFOTEv = do
       v1 <- randomVariable
@@ -39,13 +50,33 @@ vUnifiableFOTEv = do
       if n == 1 then return $ NF (v1, v1)
                 else do v2 <- randomVariable
                         return $ NF (v1, v2)
-vUnifiableFOTEf :: Gen NewFOTE --Variable Symbol = Function
-vUnifiableFOTEf = undefined
---      v <- randomVariable
---      f <- randomFunction ('v', 0) v
 
 
+vUnifiableFOTEf :: Gen NewFOTE
+--Variable Symbol = Function or
+--Variable Symbol = Constant Symbol or
+--commutation of above
+vUnifiableFOTEf = do
+      v <- randomVariable
+      s <- choose (2, 20)
+      f <- randomFunction ('v', s ) v
+      n <- choose (1::Int, 2::Int)
+      if n == 1 then return $ NF (v, f)
+                else return $ NF (f, v)
 
+cUnifiableFOTEc :: Gen NewFOTE
+cUnifiableFOTEc = do
+    c <- randomConstant
+    f <- randomFunction ('c', 0) c
+    n <- choose (1::Int, 3::Int)
+    if n == 1
+    then return $ NF (c, c)
+    else if n == 2
+         then return $ NF (f, c)
+         else return $ NF (c, f)
+
+unifiableFOTEGen :: [Gen NewFOTE]
+unifiableFOTEGen = [cUnifiableFOTEc, vUnifiableFOTEf, vUnifiableFOTEv]
 
 randomFunction :: (Char, Int) -> Term -> Gen Term
 -- (Char, Int):
