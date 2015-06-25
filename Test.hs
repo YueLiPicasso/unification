@@ -62,4 +62,5 @@ main = defaultMain $ testGroup "All tests" [
     testProperty "Same terms unify" sameTermsUnify
 --  , testProperty "Differently named constants/functions don't unify" differentConstantAndFunctionDontUnify
 --  , testProperty "Function with arguments won't unify with constant" functionWithArgumentsWontUnifyWithConstant
+
   ]

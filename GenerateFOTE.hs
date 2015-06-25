@@ -16,12 +16,10 @@ randomName :: Char -> Gen String
 -- 'f' for generating function name, other char for variable name
 randomName c = do
    nameTail <- elements (['0'..'9']++['a'..'z'])
-   if c == 'f' then do
-              fnameHead <- elements ['a'..'z']
-              return (fnameHead : nameTail : [])
-   else             do
-              vnameHead <- elements ['A'..'Z']
-              return (vnameHead : nameTail: [])
+   if c == 'f' then do fnameHead <- elements ['a'..'z']
+                       return (fnameHead : nameTail : [])
+               else do vnameHead <- elements ['A'..'Z']
+                       return (vnameHead : nameTail: [])
 
 
 randomConstant :: Gen Term
@@ -59,17 +57,17 @@ randomFunction :: (Char, Int) -> Term -> Gen Term
 --    'a' means arbitrary function, at this time Int is size parameter
 randomFunction (c, n) t = do
        if c == 'c'
-       then do let name = getName t
-               return (Function name 0 [])
-       else if c == 'a'
-            then do fname  <-  randomName 'f'
-                    args   <- sizedListOf sizedTerm (n - 1)
-                    let i = length args
-                    return (Function fname i args)
-       else if c == 'v' then do
-                    let s = getName t
-                    (sizedTermWithout s n) `suchThat` (\t-> isFunction t )
-       else error "randomFunction :: (Char, Int) -> Term -> Gen Term Invalid value for Char"
+        then do let name = getName t
+                return (Function name 0 [])
+        else if c == 'a'
+              then do fname  <-  randomName 'f'
+                      args   <- sizedListOf sizedTerm (n - 1)
+                      let i = length args
+                      return (Function fname i args)
+              else if c == 'v' then do
+                          let s = getName t
+                          (sizedTermWithout s n) `suchThat` (\t-> isFunction t )
+                        else error "randomFunction :: (Char, Int) -> Term -> Gen Term Invalid value for Char"
 
 sizedTermWithout :: String -> Int -> Gen Term
 -- without occurance of a variable whose name is specified by String
