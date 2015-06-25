@@ -1,6 +1,7 @@
 module UnifyTerms
    (
      unifyTerms
+   , unifyTermList
    ) where
 
 import Substitution

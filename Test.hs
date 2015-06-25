@@ -1,8 +1,8 @@
-module Main where
+module Test where
 
 import Data.List
-import Test.Tasty (defaultMain, testGroup)
-import Test.Tasty.QuickCheck
+--import Test.Tasty (defaultMain, testGroup)
+--import Test.Tasty.QuickCheck
 import Test.QuickCheck
 import MMAlgoA
 import ReadPrintTerms
@@ -55,12 +55,12 @@ functionWithArgumentsWontUnifyWithConstant n i l =
   unificationTransform [(Constant n, Function n positive l)] == Nothing
   where positive = 1 + (abs i)
 
-main = defaultMain $ testGroup "All tests" [
+--main = defaultMain $ testGroup "All tests" [
 --    testProperty "Can generate bounded lists" sizedListRespectsBound
 --  , testProperty "Can generate bounded terms" sizedTermRespectsBound
 --  , testProperty "Different Constants Don't Unify" differentConstantsDontUnify
-    testProperty "Same terms unify" sameTermsUnify
+--    testProperty "Same terms unify" sameTermsUnify
 --  , testProperty "Differently named constants/functions don't unify" differentConstantAndFunctionDontUnify
 --  , testProperty "Function with arguments won't unify with constant" functionWithArgumentsWontUnifyWithConstant
 
-  ]
+--  ]

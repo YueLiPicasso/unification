@@ -11,10 +11,13 @@ module GenerateFOTE
 -- generate unifiable FOTEs
 
 import Data.List
+import Data.Maybe (fromJust)
 import Test.QuickCheck
 import MMAlgoA
 import ReadPrintTerms(Term(..), getName, isFunction)
-import FOTEset (NewFOTE(..))
+import FOTEset (NewFOTE(..), newFOTE2FOTE)
+import UnifyTerms (unifyTermList, unifyTerms)
+import Substitution (applySubs)
 
 instance Arbitrary Term where
   arbitrary = do
@@ -75,8 +78,42 @@ cUnifiableFOTEc = do
          then return $ NF (f, c)
          else return $ NF (c, f)
 
+fUnifiableFOTEf :: Gen NewFOTE
+fUnifiableFOTEf = do
+   fname <- randomName 'f'
+   arity <- choose (1::Int, 5::Int)
+   (ts1, ts2) <- unifiableListPair arity
+   let f1 = Function fname arity ts1
+   let f2 = Function fname arity ts2
+   return $ NF (f1, f2)
+
+
+unifiableListPair :: Int -> Gen ([Term],[Term])
+unifiableListPair 1 = do
+   newfote <- oneof unifiableFOTEGen
+   let (t1, t2) = newFOTE2FOTE newfote
+   return ([t1],[t2])
+
+unifiableListPair a = do
+   newfote <- oneof unifiableFOTEGen
+   let (t1, t2) = newFOTE2FOTE newfote
+   let t1AsList = t1 : []
+   let t2AsList = t2 : []
+   (tail1, tail2) <- unifiableListPair (a-1)
+   let tailUnifier = unifyTermList tail1 tail2
+   let t1AsList' = applySubs (fromJust tailUnifier) t1AsList
+   let t2AsList' = applySubs (fromJust tailUnifier) t2AsList
+   let subs_head = unifyTerms (head t1AsList') (head t2AsList')
+   if subs_head == Nothing
+   then unifiableListPair a
+   else return ((t1:tail1),(t2:tail2))
+
+
+
+
 unifiableFOTEGen :: [Gen NewFOTE]
-unifiableFOTEGen = [cUnifiableFOTEc, vUnifiableFOTEf, vUnifiableFOTEv]
+unifiableFOTEGen =
+  [cUnifiableFOTEc, vUnifiableFOTEf, vUnifiableFOTEv, fUnifiableFOTEf]
 
 randomFunction :: (Char, Int) -> Term -> Gen Term
 -- (Char, Int):
