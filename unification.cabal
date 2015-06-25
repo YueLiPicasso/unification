@@ -3,30 +3,22 @@
 
 name:                unification
 version:             0.1.0.0
-synopsis:            Haskell Unification
-description:         Martelli's 1976 Algorithm A and one more
+synopsis:            unification algorithm
+-- description:         
 license:             GPL-3
 license-file:        LICENSE
 author:              YueLiPicasso
 maintainer:          YueLiPicasso@users.noreply.github.com
-copyright:           
+-- copyright:           
 category:            Math
 build-type:          Simple
 extra-source-files:  README.md
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     UnifyTerms, Substitution, ReadPrintTerms, MMAlgoA, FOTEset
-  other-modules:       
-  other-extensions:    
-  build-depends:       base >=4.7
-  hs-source-dirs:      
+  exposed-modules:     UnifyTerms, Test, Substitution, ReadPrintTerms, MMAlgoA, GenerateFOTE, FOTEset
+  -- other-modules:       
+  -- other-extensions:    
+  build-depends:       base >=4.7 && <4.8, QuickCheck >=2.6 && <2.7
+  -- hs-source-dirs:      
   default-language:    Haskell2010
-
-test-suite test
-    type:                exitcode-stdio-1.0
-    main-is:             Test.hs
-    build-depends:       base >=4.7
-                       , tasty >= 0.7
-                       , tasty-quickcheck
-                       , QuickCheck
