@@ -2,6 +2,7 @@ module FOTEset
    (
      FOTE
    , FOTEset
+   , NewFOTE (..)
    , occurMoreThanOnceIn
    ) where
 
@@ -11,11 +12,13 @@ import ReadPrintTerms (Term(..), occursAt)
 
 type FOTEset = [FOTE]
 type FOTE = (Term, Term)
+newtype NewFOTE  = NF FOTE
 
 -- each equation is represented by a tuple;
 -- fisrt member of the tuple is the left member of the equation
 -- second member of the tuple is the right member of the equation
-
+instance Show NewFOTE where
+  show (NF (t1, t2)) = show t1 ++ " = " ++ show t2
 --------------------------------------------------------------------------------
 occurMoreThanOnceIn :: Term -> FOTEset -> Bool
 

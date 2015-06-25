@@ -14,9 +14,10 @@ instance Arbitrary Term where
 
 sizedTerm :: Int -> Gen Term
 sizedTerm n = do
-  name <- return "" --arbitrary
-  i    <- arbitrary
-  args <- sizedListOf sizedTerm (n - 1)
+  name  <-  listOf1 $ elements (['1'..'9']++['a'..'z']++['A'..'Z'])    --return "" --arbitrary
+  --i     <- arbitrary
+  args  <- sizedListOf sizedTerm (n - 1)
+  let i = length args
   elements ([Constant name, Variable name] ++
             if n < 2 then []
                      else [Function name i args])
