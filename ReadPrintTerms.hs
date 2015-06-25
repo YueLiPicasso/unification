@@ -5,12 +5,16 @@ module ReadPrintTerms
      , readTerms
      , printTerms
      , isVariable
+     , isFunction
      , occursAt
+     , getName
      ) where
 --A file in which each line is a term has already been converted
 --into a string, the readPrintTerms function stores the terms
 --information into data type Term and convert the data back to
 --string but in a tidy format, i.e. not showing the value constructors
+
+import Data.List (concat, intersperse)
 -----------------------------------------------------------------
 data Term = Constant String
           | Variable String
@@ -27,10 +31,11 @@ data Term = Constant String
 --          length of [Term]
 -----------------------------------------------------------------
 instance Show Term where
- show (Constant xs) = show xs
- show (Variable xs) = show xs
- show (Function name 0 []) = show name
- show (Function name arity xs) = (show name) ++ (show xs)
+ show (Constant xs) = xs
+ show (Variable xs) = xs
+ show (Function name 0 []) = name
+ show (Function name arity xs) = name ++ "("
+      ++ (concat $ intersperse "," $ map show xs) ++ ")"
 -----------------------------------------------------------------
 readPrintTerms :: String -> String
 readPrintTerms input =
@@ -60,6 +65,10 @@ printTerms listOfTerms =
 isVariable :: Term -> Bool
 isVariable (Variable _) = True
 isVariable _ = False
+
+isFunction :: Term -> Bool
+isFunction (Function _ _ _ ) = True
+isFunction _ = False
 ----------------------------------------------------------------------
 occursAt :: Term -> Term -> Bool
 v@(Variable str) `occursAt` (Function _ _ tms) = or (map (occursAt v) tms)
@@ -69,3 +78,7 @@ v@(Variable str) `occursAt` (Function _ _ tms) = or (map (occursAt v) tms)
 (Variable _ ) `occursAt` (Constant _ ) = False
 _ `occursAt` _ = undefined
 ---------------------------------------------------------------
+getName :: Term -> String
+getName (Constant cn) = cn
+getName (Variable vn) = vn
+getName _ = undefined
