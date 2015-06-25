@@ -51,7 +51,7 @@ functionContainingVar v = do
   return (Function name 1 (preContaining ++ pre ++ [v] ++ post ++ postContaining))
 
 sameTermsUnify t =
-  unificationTransform [(t, t)] /= Nothing
+  unificationTransform [(t, t)] == Just []
 
 differentConstantsDontUnify c1 c2 = c1 /= c2 ==>
   unificationTransform [(Constant c1, Constant c2)] == Nothing
@@ -64,10 +64,10 @@ functionWithArgumentsWontUnifyWithConstant n i l =
   where positive = 1 + (abs i)
 
 main = defaultMain $ testGroup "All tests" [
-    testProperty "Can generate bounded lists" sizedListRespectsBound
-  , testProperty "Can generate bounded terms" sizedTermRespectsBound
-  , testProperty "Different Constants Don't Unify" differentConstantsDontUnify
-  , testProperty "Same terms unify" sameTermsUnify
-  , testProperty "Differently named constants/functions don't unify" differentConstantAndFunctionDontUnify
-  , testProperty "Function with arguments won't unify with constant" functionWithArgumentsWontUnifyWithConstant
+--    testProperty "Can generate bounded lists" sizedListRespectsBound
+--  , testProperty "Can generate bounded terms" sizedTermRespectsBound
+--  , testProperty "Different Constants Don't Unify" differentConstantsDontUnify
+    testProperty "Same terms unify" sameTermsUnify
+--  , testProperty "Differently named constants/functions don't unify" differentConstantAndFunctionDontUnify
+--  , testProperty "Function with arguments won't unify with constant" functionWithArgumentsWontUnifyWithConstant
   ]
