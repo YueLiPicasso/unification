@@ -15,7 +15,7 @@ import Data.List
 import Data.Maybe (fromJust)
 import Test.QuickCheck
 import MMAlgoA
-import ReadPrintTerms(Term(..), getName, isFunction)
+import ReadPrintTerms(Term(..), getName, isVariable)
 import FOTEset (NewFOTE(..), newFOTE2FOTE)
 import UnifyTerms (unifyTermList, unifyTerms)
 import Substitution (applySubs)
@@ -49,65 +49,62 @@ randomVariable = do
 
 
 vUnifiableFOTEv :: Gen NewFOTE
--- Variable symbol = Variable Symbol
+-- Variable symbol = Variable Symbol (same name)
 vUnifiableFOTEv = do
       v1 <- randomVariable
-      n  <- choose (1::Int, 2::Int)  -- half of time gives x = x the other half x = y
-      if n == 1 then return $ NF (v1, v1)
-                else do v2 <- randomVariable
-                        return $ NF (v1, v2)
+      return $ NF (v1, v1)
 
-cUnifiableFOTEc :: Gen NewFOTE
--- Constant symbol = Constant Symbol
-cUnifiableFOTEc = do
-      c <- randomConstant
-      return $ NF (c, c)
-
-vUnifiableFOTEc :: Gen NewFOTE
--- Variable symbol = Constant Symbol or
--- commutation of above
-vUnifiableFOTEc = do
-      v <- randomVariable
-      c <- randomConstant
-      n  <- choose (1::Int, 2::Int)
-      -- half of time gives c = v the other half v = c
-      if n == 1 then return $ NF (v, c)
-                else return $ NF (c, v)
 
 vUnifiableFOTEf :: Gen NewFOTE
---Variable Symbol = Function or
---commutation of above
+--group1 {
+-- Variable Symbol = Function or
+-- Function = Variable Symbol or
+-- }
+--group2 {
+-- Variable symbol = Constant Symbol or
+-- Constant symbol = Variable Symbol or
+-- Variable symbol = Variable Symbol (different names)
+-- }
+-- chance ratio: group 1 : 2 = 7 : 10
+-- equal chance within group
 vUnifiableFOTEf = do
       v <- randomVariable
-      s <- choose (2, 3)
+      s <- choose (-8 , 8)
       f <- randomFunction ('v', s ) v
       n <- choose (1::Int, 2::Int)
       if n == 1 then return $ NF (v, f)
                 else return $ NF (f, v)
 
 cUnifiableFOTEf :: Gen NewFOTE
+-- Constant symbol = Constant Symbol
+-- Function = Constant Symbol
+-- Constant symbol = Function
+-- Function () = Function ()
+-- equal chance
 cUnifiableFOTEf = do
     c <- randomConstant
     f <- randomFunction ('c', 0) c
-    n <- choose (1::Int, 3::Int)
+    n <- choose (1::Int, 4::Int)
     if n == 1
     then return $ NF (c, c)
     else if n == 2
+         then return $ NF (f, f)
+    else if n == 3
          then return $ NF (f, c)
          else return $ NF (c, f)
 
 fUnifiableFOTEf :: Gen NewFOTE
+-- Function (...) = Function (...)
 fUnifiableFOTEf = do
    fname <- randomName 'f'
-   arity <- choose (0::Int, 5::Int)
-   if arity /= 0 then do
+   arity <- choose (1::Int, 5::Int)
    (ts1, ts2) <- unifiableListPair arity
    let f1 = Function fname arity ts1
    let f2 = Function fname arity ts2
    return $ NF (f1, f2)
-   else do let f1 = Function fname 0 []
-           let f2 = Function fname 0 []
-           return $ NF (f1, f2)
+
+
+
 
 unifiableListPair :: Int -> Gen ([Term],[Term])
 unifiableListPair 1 = do
@@ -132,14 +129,14 @@ unifiableListPair a = do
 
 unifiableFOTEGen :: [ ( Int, Gen NewFOTE ) ]
 unifiableFOTEGen =
-  ([(5, vUnifiableFOTEv), (5,cUnifiableFOTEc), (40,vUnifiableFOTEc)]++
-   [(1, cUnifiableFOTEf), (5, vUnifiableFOTEf), (5, fUnifiableFOTEf)])
+  ([(1, vUnifiableFOTEv)]++
+   [(4, cUnifiableFOTEf), (5, vUnifiableFOTEf), (1, fUnifiableFOTEf)])
 
 
 
 unifiableFOTEGen4Demo :: [ ( Int, Gen NewFOTE ) ]
 unifiableFOTEGen4Demo =
-  ([(1, vUnifiableFOTEv), (1,cUnifiableFOTEc), (1,vUnifiableFOTEc)]++
+  ([(1, vUnifiableFOTEv)]++
    [(1, cUnifiableFOTEf), (1, vUnifiableFOTEf), (50, fUnifiableFOTEf)])
 
 
@@ -162,7 +159,7 @@ randomFunction (c, n) t = do
                       return (Function fname i args)
               else if c == 'v' then do
                           let s = getName t
-                          (sizedTermWithout s n) `suchThat` (\t-> isFunction t )
+                          sizedTermWithout s n
                         else error "randomFunction :: (Char, Int) -> Term -> Gen Term Invalid value for Char"
 
 sizedTermWithout :: String -> Int -> Gen Term
