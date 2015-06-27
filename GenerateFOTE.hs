@@ -57,8 +57,8 @@ vUnifiableFOTEv = do
 
 vUnifiableFOTEf :: Gen NewFOTE
 --group1 {
--- Variable Symbol = Function or
--- Function = Variable Symbol or
+-- Variable Symbol = Function (?) or
+-- Function (?) = Variable Symbol or
 -- }
 --group2 {
 -- Variable symbol = Constant Symbol or
@@ -77,8 +77,8 @@ vUnifiableFOTEf = do
 
 cUnifiableFOTEf :: Gen NewFOTE
 -- Constant symbol = Constant Symbol
--- Function = Constant Symbol
--- Constant symbol = Function
+-- Function () = Constant Symbol
+-- Constant symbol = Function ()
 -- Function () = Function ()
 -- equal chance
 cUnifiableFOTEf = do
