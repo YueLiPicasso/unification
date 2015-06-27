@@ -1,20 +1,37 @@
 import Test.QuickCheck
 import Test.QuickCheck.Monadic
-import ReadPrintTerms (Term(..), occursAt)
-import FOTEset (newFOTE2FOTE, NewFOTE)
-import GenerateFOTE (randomFunction, randomVariable,unifiableFOTEGen)
-import MMAlgoA (unificationTransform)
-import UnifyTerms (unifyTerms)
+import ReadPrintTerms    (Term(..), occursAt)
+import FOTEset           (newFOTE2FOTE, NewFOTE)
+import GenerateFOTE      (randomFunction, randomVariable,unifiableFOTEGen, unifiableFOTEGen4Demo)
+import MMAlgoA           (unificationTransform)
+import UnifyTerms        (unifyTerms)
+import Substitution      (applySubs, foteSet2Subs, mapTuple, headTuple)
+import Data.Maybe        (fromJust)
+
+prop_unifCorrectMM' :: NewFOTE -> Bool
+prop_unifCorrectMM' unifiableNewfote = prop
+  where unifiableFote       = newFOTE2FOTE unifiableNewfote
+        maybesolvedFoteSet  = unificationTransform [unifiableFote]
+        solvedFoteSet       = fromJust maybesolvedFoteSet
+        subs                = foteSet2Subs solvedFoteSet
+--(Term, Term) -> ([Term],[Term]) -> ([Term],[Term]) -> (Term, Term)
+        unifiableFote'      = unzip (unifiableFote : [])
+        unifiableFote''     =  mapTuple (applySubs subs) unifiableFote'
+        unifiableFote'''    = headTuple unifiableFote''
+        prop = unificationTransform [unifiableFote'''] == Just []
+
+prop_unifCorrectMM :: Property
+prop_unifCorrectMM = forAll (frequency unifiableFOTEGen4Demo) prop_unifCorrectMM'
 
 
-prop_MMUnifiable_FOTE_Unifiable :: NewFOTE -> Bool
-prop_MMUnifiable_FOTE_Unifiable newfote = prop
+prop_MMUnifiable_FOTE_Unifiable' :: NewFOTE -> Bool
+prop_MMUnifiable_FOTE_Unifiable' newfote = prop
    where
     fote = newFOTE2FOTE newfote
     prop = (unificationTransform [fote]) /= Nothing
 
-prop_foteUnifiableMM :: Property
-prop_foteUnifiableMM = forAll (oneof unifiableFOTEGen) prop_MMUnifiable_FOTE_Unifiable
+prop_MMUnifiable_FOTE_Unifiable :: Property
+prop_MMUnifiable_FOTE_Unifiable = forAll (frequency unifiableFOTEGen) prop_MMUnifiable_FOTE_Unifiable'
 
 prop_UTUnifiable_FOTE_Unifiable :: NewFOTE -> Bool
 prop_UTUnifiable_FOTE_Unifiable newfote = prop
@@ -23,7 +40,7 @@ prop_UTUnifiable_FOTE_Unifiable newfote = prop
     prop = (unifyTerms t1 t2) /= Nothing
 
 prop_foteUnifiableUT :: Property
-prop_foteUnifiableUT = forAll (oneof unifiableFOTEGen) prop_UTUnifiable_FOTE_Unifiable
+prop_foteUnifiableUT = forAll (frequency unifiableFOTEGen) prop_UTUnifiable_FOTE_Unifiable
 
 
 

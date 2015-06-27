@@ -50,6 +50,8 @@ instance Show UnificationQandA_MM1976A where
    show (UniQA_MM1976A (newfote, newfotes)) = "\nSolve Unification Problem:\n\n" ++
            show newfote ++ "\n\nSolution:\n\n" ++ show newfotes
 --------------------------------------------------------------------------------
+
+
 occurMoreThanOnceIn :: Term -> FOTEset -> Bool
 
 -- Pre-requisite:

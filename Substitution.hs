@@ -3,10 +3,15 @@ module Substitution
    Substitution,
    comboSubs,
    applySubs,
-   applyOneSubs
+   applyOneSubs,
+   foteSet2Subs,
+   mapTuple,
+   headTuple
   ) where
 
-import ReadPrintTerms (Term(..), isVariable, occursAt)
+import ReadPrintTerms    (Term(..), isVariable, occursAt)
+import FOTEset           (FOTEset)
+import Data.Tuple        (swap)
 -------------------------------------------------------------------------------
 type Substitution = [(Term, Term)]
 
@@ -14,6 +19,19 @@ type Substitution = [(Term, Term)]
 --the first Term value cannot contain the same variable as the second Term value
 --when the first Term value is constructed by a "Function" value constructor.
 ------------------------------------------------------------------------------
+foteSet2Subs :: FOTEset -> Substitution
+foteSet2Subs = map swap
+
+
+mapTuple :: (a -> b) -> (a, a) -> (b, b)
+--mapTuple :: ([Term] -> [Term]) -> ([Term],[Term]) -> ([Term],[Term])
+mapTuple f (x, y) = (f x , f y)
+
+headTuple :: ([a],[b]) -> (a, b)
+headTuple (as, bs) = (head as, head bs)
+
+
+
 comboSubs :: Maybe Substitution -> Maybe Substitution -> Maybe Substitution
 --the context of this function makes the first argument be (Just _)
 comboSubs _ Nothing                     = Nothing
