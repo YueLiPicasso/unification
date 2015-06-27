@@ -5,19 +5,18 @@ import Data.Maybe (fromJust)
 import FOTEset
 import MMAlgoA
 import UnifyTerms
-import GenerateFOTE (unifiableFOTEGen)
+import GenerateFOTE (unifiableFOTEGen4Demo)
 
 printFOTEset :: IO ()
 printFOTEset = do
    putStrLn "\n*** Each single equation is unifiable but the whole set is not necessarily unifiable.\n"
-   smps <- sample' $ oneof unifiableFOTEGen
+   smps <- sample' $ frequency unifiableFOTEGen4Demo
    putStrLn $ show $ NFset smps
 
 
 unificationDemo :: String -> IO ()
 unificationDemo uniAlgo = do
-  newfotes <- sample' $ oneof unifiableFOTEGen
-  let newfote = head $ drop 3 newfotes
+  newfote <- generate $ frequency unifiableFOTEGen4Demo
   let fote = newFOTE2FOTE newfote
   if uniAlgo == "MM1976A"
   then do

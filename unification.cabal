@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                unification
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            Unification algorithm in Haskell
 description:         Two unification algorithms has been implemented so far;
                      one is called unifyTerms in module UnifyTerms; the other
@@ -41,6 +41,6 @@ library
                        FOTEset
   other-modules:
   other-extensions:
-  build-depends:       base >=4.7 && <4.8, QuickCheck >=2.6 && <2.7
+  build-depends:       base >=4.7 && <4.8, QuickCheck >=2.8 && <2.9
   hs-source-dirs:
   default-language:    Haskell2010

@@ -6,6 +6,7 @@ module GenerateFOTE
 , randomVariable
 , randomFunction
 , unifiableFOTEGen
+, unifiableFOTEGen4Demo
 ) where
 
 -- generate unifiable FOTEs
@@ -28,11 +29,12 @@ randomName :: Char -> Gen String
 -- generate random two letter length function or Variable name
 -- 'f' for generating function name, other char for variable name
 randomName c = do
-   nameTail <- elements (['0'..'9']++['a'..'z'])
    if c == 'f' then do fnameHead <- elements ['a'..'z']
-                       return (fnameHead : nameTail : [])
+                       fnameTail <- elements (['0'..'9']++['a'..'z'])
+                       return (fnameHead : fnameTail : [])
                else do vnameHead <- elements ['A'..'Z']
-                       return (vnameHead : nameTail: [])
+                       vnameTail <- elements (['0'..'9']++['a'..'z'])
+                       return (vnameHead : vnameTail: [])
 
 
 randomConstant :: Gen Term
@@ -46,7 +48,8 @@ randomVariable = do
         return (Variable vname)
 
 
-vUnifiableFOTEv :: Gen NewFOTE -- Variable symbol = Variable Symbol
+vUnifiableFOTEv :: Gen NewFOTE
+-- Variable symbol = Variable Symbol
 vUnifiableFOTEv = do
       v1 <- randomVariable
       n  <- choose (1::Int, 2::Int)  -- half of time gives x = x the other half x = y
@@ -54,21 +57,36 @@ vUnifiableFOTEv = do
                 else do v2 <- randomVariable
                         return $ NF (v1, v2)
 
+cUnifiableFOTEc :: Gen NewFOTE
+-- Constant symbol = Constant Symbol
+cUnifiableFOTEc = do
+      c <- randomConstant
+      return $ NF (c, c)
+
+vUnifiableFOTEc :: Gen NewFOTE
+-- Variable symbol = Constant Symbol or
+-- commutation of above
+vUnifiableFOTEc = do
+      v <- randomVariable
+      c <- randomConstant
+      n  <- choose (1::Int, 2::Int)
+      -- half of time gives c = v the other half v = c
+      if n == 1 then return $ NF (v, c)
+                else return $ NF (c, v)
 
 vUnifiableFOTEf :: Gen NewFOTE
 --Variable Symbol = Function or
---Variable Symbol = Constant Symbol or
 --commutation of above
 vUnifiableFOTEf = do
       v <- randomVariable
-      s <- choose (2, 20)
+      s <- choose (2, 3)
       f <- randomFunction ('v', s ) v
       n <- choose (1::Int, 2::Int)
       if n == 1 then return $ NF (v, f)
                 else return $ NF (f, v)
 
-cUnifiableFOTEc :: Gen NewFOTE
-cUnifiableFOTEc = do
+cUnifiableFOTEf :: Gen NewFOTE
+cUnifiableFOTEf = do
     c <- randomConstant
     f <- randomFunction ('c', 0) c
     n <- choose (1::Int, 3::Int)
@@ -81,21 +99,24 @@ cUnifiableFOTEc = do
 fUnifiableFOTEf :: Gen NewFOTE
 fUnifiableFOTEf = do
    fname <- randomName 'f'
-   arity <- choose (1::Int, 5::Int)
+   arity <- choose (0::Int, 5::Int)
+   if arity /= 0 then do
    (ts1, ts2) <- unifiableListPair arity
    let f1 = Function fname arity ts1
    let f2 = Function fname arity ts2
    return $ NF (f1, f2)
-
+   else do let f1 = Function fname 0 []
+           let f2 = Function fname 0 []
+           return $ NF (f1, f2)
 
 unifiableListPair :: Int -> Gen ([Term],[Term])
 unifiableListPair 1 = do
-   newfote <- oneof unifiableFOTEGen
+   newfote <- frequency unifiableFOTEGen
    let (t1, t2) = newFOTE2FOTE newfote
    return ([t1],[t2])
 
 unifiableListPair a = do
-   newfote <- oneof unifiableFOTEGen
+   newfote <- frequency unifiableFOTEGen
    let (t1, t2) = newFOTE2FOTE newfote
    let t1AsList = t1 : []
    let t2AsList = t2 : []
@@ -109,11 +130,18 @@ unifiableListPair a = do
    else return ((t1:tail1),(t2:tail2))
 
 
-
-
-unifiableFOTEGen :: [Gen NewFOTE]
+unifiableFOTEGen :: [ ( Int, Gen NewFOTE ) ]
 unifiableFOTEGen =
-  [cUnifiableFOTEc, vUnifiableFOTEf, vUnifiableFOTEv, fUnifiableFOTEf]
+  ([(5, vUnifiableFOTEv), (5,cUnifiableFOTEc), (40,vUnifiableFOTEc)]++
+   [(1, cUnifiableFOTEf), (5, vUnifiableFOTEf), (5, fUnifiableFOTEf)])
+
+
+
+unifiableFOTEGen4Demo :: [ ( Int, Gen NewFOTE ) ]
+unifiableFOTEGen4Demo =
+  ([(1, vUnifiableFOTEv), (1,cUnifiableFOTEc), (1,vUnifiableFOTEc)]++
+   [(1, cUnifiableFOTEf), (1, vUnifiableFOTEf), (50, fUnifiableFOTEf)])
+
 
 randomFunction :: (Char, Int) -> Term -> Gen Term
 -- (Char, Int):

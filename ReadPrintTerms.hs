@@ -33,7 +33,7 @@ data Term = Constant String
 instance Show Term where
  show (Constant xs) = xs
  show (Variable xs) = xs
- show (Function name 0 []) = name
+ show (Function name 0 []) = name ++ "()"
  show (Function name arity xs) = name ++ "("
       ++ (concat $ intersperse "," $ map show xs) ++ ")"
 -----------------------------------------------------------------
