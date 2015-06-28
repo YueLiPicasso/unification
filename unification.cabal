@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                unification
-version:             0.1.0.2
+version:             0.1.0.3
 synopsis:            Unification algorithm in Haskell
 description:         Two unification algorithms has been implemented so far;
                      one is called unifyTerms in module UnifyTerms; the other
@@ -15,11 +15,12 @@ description:         Two unification algorithms has been implemented so far;
                      getting equation of controlable size.
                      The UnificationDemo module provides a function unificationDemo,
                      when a string "MM1976A" is passed to it, it can print on GHCi
-                     a randomly generated but unifiable unifacation problem, followed
-                     by a solution (MGU) obtained by the unifiation Algorithm A
+                     a randomly generated unifiable or not unifiable unifacation problem, followed
+                     by a solution (MGU or Fail) obtained by the unifiation Algorithm A
                      published in Martelli and Montanari's 1976 report. The function call
                      can be repeated many times to demonstrate a plural of first order
                      unification problems and their solution.
+
 license:             GPL-3
 license-file:        LICENSE
 author:              YueLiPicasso
@@ -31,14 +32,7 @@ extra-source-files:  README.md
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     UnifyTerms,
-                       UnificationDemo,
-                       Test,
-                       Substitution,
-                       ReadPrintTerms,
-                       MMAlgoA,
-                       GenerateFOTE,
-                       FOTEset
+  exposed-modules:     UnifyTerms, UnificationDemo, Test, Substitution, ReadPrintTerms, MMAlgoA, GenerateFOTE, FOTEset
   other-modules:
   other-extensions:
   build-depends:       base >=4.7 && <4.8, QuickCheck >=2.8 && <2.9

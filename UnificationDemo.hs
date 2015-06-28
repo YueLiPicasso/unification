@@ -16,13 +16,14 @@ printFOTEset = do
 
 unificationDemo :: String -> IO ()
 unificationDemo uniAlgo = do
-  newfote <- generate $ frequency nUFOTEGen
+  foteGen <- generate $ elements [nUFOTEGen, unifiableFOTEGen4Demo]
+  newfote <- generate $ frequency foteGen
   let fote = newFOTE2FOTE newfote
   if uniAlgo == "MM1976A"
   then do
      let solvedForm' = unificationTransform [fote]
      if solvedForm' /= Nothing then do
-     let solvedForm = NFset $ map fote2newFOTE $ fromJust solvedForm'
-     putStrLn $ show $ UniQA_MM1976A (newfote, solvedForm)
+          let solvedForm = NFset (map fote2newFOTE (fromJust solvedForm'))
+          putStrLn $ show $ UniQA_MM1976A (newfote, solvedForm)
      else putStrLn $ show newfote ++ "\n\n Fail"
   else putStrLn "undefined"
