@@ -81,4 +81,4 @@ _ `occursAt` _ = undefined
 getName :: Term -> String
 getName (Constant cn) = cn
 getName (Variable vn) = vn
-getName _ = undefined
+getName (Function fn a _) = show a ++ fn

@@ -2,11 +2,23 @@ import Test.QuickCheck
 import Test.QuickCheck.Monadic
 import ReadPrintTerms    (Term(..), occursAt)
 import FOTEset           (newFOTE2FOTE, NewFOTE)
-import GenerateFOTE      (randomFunction, randomVariable,unifiableFOTEGen, unifiableFOTEGen4Demo)
+import GenerateFOTE      (randomFunction, randomVariable,unifiableFOTEGen, unifiableFOTEGen4Demo,nUFOTEGen)
 import MMAlgoA           (unificationTransform)
 import UnifyTerms        (unifyTerms)
 import Substitution      (applySubs, foteSet2Subs, mapTuple, headTuple)
 import Data.Maybe        (fromJust)
+
+
+prop_notUnify_notUnifiableFOTEMM :: Property
+prop_notUnify_notUnifiableFOTEMM =
+    forAll (frequency nUFOTEGen)  prop_notUnify_notUnifiableFOTEMM'
+
+prop_notUnify_notUnifiableFOTEMM' :: NewFOTE -> Bool
+prop_notUnify_notUnifiableFOTEMM' newfote = prop
+   where fote = newFOTE2FOTE newfote
+         prop = (unificationTransform [fote]) == Nothing
+
+
 
 prop_unifCorrectMM' :: NewFOTE -> Bool
 prop_unifCorrectMM' unifiableNewfote = prop
@@ -20,8 +32,11 @@ prop_unifCorrectMM' unifiableNewfote = prop
         unifiableFote'''    = headTuple unifiableFote''
         prop = unificationTransform [unifiableFote'''] == Just []
 
+
+
 prop_unifCorrectMM :: Property
-prop_unifCorrectMM = forAll (frequency unifiableFOTEGen4Demo) prop_unifCorrectMM'
+prop_unifCorrectMM =
+    forAll (frequency unifiableFOTEGen4Demo) prop_unifCorrectMM'
 
 
 prop_MMUnifiable_FOTE_Unifiable' :: NewFOTE -> Bool
@@ -31,7 +46,8 @@ prop_MMUnifiable_FOTE_Unifiable' newfote = prop
     prop = (unificationTransform [fote]) /= Nothing
 
 prop_MMUnifiable_FOTE_Unifiable :: Property
-prop_MMUnifiable_FOTE_Unifiable = forAll (frequency unifiableFOTEGen) prop_MMUnifiable_FOTE_Unifiable'
+prop_MMUnifiable_FOTE_Unifiable =
+    forAll (frequency unifiableFOTEGen) prop_MMUnifiable_FOTE_Unifiable'
 
 prop_UTUnifiable_FOTE_Unifiable :: NewFOTE -> Bool
 prop_UTUnifiable_FOTE_Unifiable newfote = prop

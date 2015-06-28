@@ -7,6 +7,7 @@ module GenerateFOTE
 , randomFunction
 , unifiableFOTEGen
 , unifiableFOTEGen4Demo
+, nUFOTEGen
 ) where
 
 -- generate unifiable FOTEs
@@ -46,6 +47,85 @@ randomVariable :: Gen Term
 randomVariable = do
         vname  <- randomName 'v'
         return (Variable vname)
+
+
+
+cNUFOTEc :: Gen NewFOTE
+-- Constant Symbol = Constant Symbol (different names)
+-- competition : 1 -> 1
+cNUFOTEc = do
+    c <- randomConstant
+    let c2 = Constant (getName c ++ "o")
+    return $ NF (c, c2)
+
+cNUFOTEf :: Gen NewFOTE
+-- Constant Symbol = Function
+-- Function = Constant Symbol
+-- (different name or same name but function has arguments)
+-- equal chance
+-- competition : 4 -> 1
+cNUFOTEf = do
+    f <- randomFunction ('a', 10) (Constant "")
+    let fn = getName f
+    let arity = head fn
+
+    -- different name
+    let c = Constant (tail fn ++ "o")
+    -- same name
+    let c2 = Constant $ tail fn
+
+    if arity == '0'
+    then do
+            let f2 = Function (tail fn) 1 [Constant "args"]
+            fote <- elements [(c,f) , (f,c) , (c2,f2) , (f2,c2)]
+            return $ NF fote
+    else do fote <- elements [(c,f) , (f,c) , (c2,f) , (f,c2)]
+            return $ NF fote
+
+vNUFOTEf :: Gen NewFOTE
+-- Variable Symbol = Function
+-- Function = Variable Symbol
+-- (variable occurs somewhere in the function argument list)
+-- equal chance
+-- competition : 2 -> 1
+vNUFOTEf = do
+  v        <- randomVariable
+  fn       <- randomName 'f'
+  argsPre  <- sizedListOf sizedTerm 5
+  argsPost <- sizedListOf sizedTerm 5
+  let args = argsPre ++ [v] ++ argsPost
+  let ari = length args
+  let f = Function fn ari args
+  fote <- elements [(v, f), (f, v)]
+  return $ NF fote
+
+fNUFOTEf :: Gen NewFOTE
+-- competition : 3 -> 1
+fNUFOTEf = do
+    -- different names
+    f1          <- randomFunction ('a', 8) (Constant "")
+    let fn      = tail (getName f1 ++ "o")
+    args        <- sizedListOf sizedTerm 8
+    let ari     = length args
+    let f2      = Function fn ari args
+    --same name different args list length
+    let f3      = Function fn (ari+1) (args ++ [Constant "go"])
+    --same name and arity, not unifiable args
+    argsPre1    <- vectorOf 3 $ sizedTerm 5
+    argsPost1   <- vectorOf 3 $ sizedTerm 5
+    newfote     <- frequency nUFOTEGen
+    argsPre2    <- vectorOf 3 $ sizedTerm 5
+    argsPost2   <- vectorOf 3 $ sizedTerm 5
+    let (t1,t2) = newFOTE2FOTE newfote
+    let args1   = argsPre1 ++ [t1] ++ argsPost1
+    let args2   = argsPre2 ++ [t2] ++ argsPost2
+    let f4      = Function fn 7 args1
+    let f4'     = Function fn 7 args2
+    fote        <-elements [(f1,f2), (f2, f3), (f4,f4')]
+    return $ NF fote
+
+nUFOTEGen :: [ ( Int , Gen NewFOTE ) ]
+nUFOTEGen = [(1,cNUFOTEc),(4,cNUFOTEf),(2,vNUFOTEf),(3,fNUFOTEf)]
 
 
 vUnifiableFOTEv :: Gen NewFOTE
