@@ -9,7 +9,9 @@ module MMAlgoA
          ) where
 
 
-import FOTEset           (FOTE, FOTEset, occurMoreThanOnceIn)
+import FOTEset           (FOTE, FOTEset,
+                          varOccurMoreThanOnceInRestof,
+                          varOccurMoreThanOnceIn)
 import ReadPrintTerms    (Term(..), isVariable, occursAt)
 import Substitution      (applySubs)
 
@@ -25,8 +27,20 @@ isInSolvedForm :: FOTEset -> Bool
 isInSolvedForm eSet
     | eSet == []                                       = True
     | (not . all foteHasGoodForm) eSet                 = False
-    | eliminatableVariablesExist eSet eSet             = False
+    | occurMoreThanOnce eSet eSet                      = False
     | otherwise                                        = True
+
+occurMoreThanOnce :: FOTEset -> FOTEset -> Bool
+-- pre-requisite:
+--   In first argument, all FOTEs in good form
+-- argument specifiaction:
+-- first and second argument are equal in value
+-- functionality:
+--   check if left member (variables) of good form FOTEs occur more than once
+
+occurMoreThanOnce [] _ = False
+occurMoreThanOnce (equ:restEqu) eSet =
+      equ `varOccurMoreThanOnceIn` eSet || occurMoreThanOnce restEqu eSet
 
 --------------------------------------------------------------------------------
 isUnsolvable :: FOTEset -> Bool
@@ -184,7 +198,8 @@ eliminatableVariablesExist :: FOTEset -> FOTEset -> Bool
 --       there is good form FOTE and none of them has a left member, which is a variable, occurs more than once in the second argument
 
 eliminatableVariablesExist [] _  = False
-eliminatableVariablesExist ((v, _ ):fotes) eSet = (v `occurMoreThanOnceIn` eSet) || eliminatableVariablesExist fotes eSet
+eliminatableVariablesExist (fote:fotes) eSet =
+  (fote `varOccurMoreThanOnceInRestof` eSet) || eliminatableVariablesExist fotes eSet
 
 --------------------------------------------------------------------------------
 
@@ -195,7 +210,7 @@ isFoteThatContainsEliminatableVarialeIn :: FOTEset -> FOTE -> Bool
 -- Functionality:
 --       Tell whether the FOTE whose left member which is a variable, can be
 --       eliminated from the FOTEset
-isFoteThatContainsEliminatableVarialeIn eSet (v, _) = v `occurMoreThanOnceIn` eSet
+isFoteThatContainsEliminatableVarialeIn eSet fote = fote ` varOccurMoreThanOnceInRestof` eSet
 ---------------------------------------------------------------------------------
 
 variableElimination :: FOTEset -> FOTEset
