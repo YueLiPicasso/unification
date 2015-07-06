@@ -26,7 +26,7 @@ license:             GPL-3
 license-file:        LICENSE
 author:              YueLiPicasso
 maintainer:          YueLiPicasso@users.noreply.github.com
--- copyright:
+copyright:
 category:            Math
 build-type:          Simple
 extra-source-files:  README.md
@@ -37,5 +37,5 @@ library
   other-modules:
   other-extensions:
   build-depends:       base >=4.7 && <4.8, QuickCheck >=2.8 && <2.9
-  hs-source-dirs:      
+  hs-source-dirs:
   default-language:    Haskell2010
