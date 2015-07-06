@@ -1,3 +1,5 @@
+module TestFunctions where
+
 import Test.QuickCheck
 import Test.QuickCheck.Monadic
 import ReadPrintTerms    (Term(..), occursAt)
