@@ -5,7 +5,7 @@ module FOTEset
    , NewFOTE (..)
    , NewFOTEset (..)
    , UnificationQandA_MM1976A (..)
-   , varOccurMoreThanOnceInRestof
+   , varOccurAtLeastOnceInRestof
    , varOccurMoreThanOnceIn
    , newFOTE2FOTE
    , fote2newFOTE
@@ -53,7 +53,7 @@ instance Show UnificationQandA_MM1976A where
 --------------------------------------------------------------------------------
 
 
-varOccurMoreThanOnceInRestof :: FOTE -> FOTEset -> Bool
+varOccurAtLeastOnceInRestof :: FOTE -> FOTEset -> Bool
 
 -- Pre-requisite:
 --     None
@@ -62,30 +62,29 @@ varOccurMoreThanOnceInRestof :: FOTE -> FOTEset -> Bool
 --     FOTEset is the FOTE set to be transformed
 -- Functionality:
 --     tells whether a variable as the left member of fOTE passed as the first argument
---     occurs more than once in the FOTEset excluding one instance of the first argument;
+--     occurs at least once in the FOTEset excluding one instance of the first argument;
 
-varOccurMoreThanOnceInRestof fote foteSet = varOccurMoreThanOnceInAccum 0 fote foteSet'
+varOccurAtLeastOnceInRestof fote foteSet = (varOccurCountAccum 0 fote foteSet') > 0
     where (fotes,restfotes) = partition (== fote) foteSet
           foteSet'          = (drop 1 fotes) ++ restfotes
 
 varOccurMoreThanOnceIn :: FOTE -> FOTEset -> Bool
-varOccurMoreThanOnceIn = varOccurMoreThanOnceInAccum 0
+varOccurMoreThanOnceIn ft fts = (varOccurCountAccum 0 ft fts) > 1
 --------------------------------------------------------------------------------
 
-varOccurMoreThanOnceInAccum :: Int -> FOTE -> FOTEset -> Bool
+varOccurCountAccum :: Int -> FOTE -> FOTEset -> Int
 
 -- Int is accumulator; n > 1 returns true
 -- Functionality:
 --     tells whether a variable as the left member of fOTE passed as the second argument
 --     occurs more than once in the FOTEset;
 
-varOccurMoreThanOnceInAccum n fote ((lm, rm):fotes) =
+varOccurCountAccum n fote ((lm, rm):fotes) =
     if  v `occursAt` lm  && v `occursAt` rm
-    then varOccurMoreThanOnceInAccum (n+2) fote fotes
+    then varOccurCountAccum (n+2) fote fotes
     else if v `occursAt` lm  || v `occursAt` rm
-    then varOccurMoreThanOnceInAccum (n+1) fote fotes
-    else varOccurMoreThanOnceInAccum n fote fotes
+    then varOccurCountAccum (n+1) fote fotes
+    else varOccurCountAccum n fote fotes
   where (v,_ ) = fote
 
-varOccurMoreThanOnceInAccum n v [] | n > 1     = True
-                                   | otherwise = False
+varOccurCountAccum n v [] = n

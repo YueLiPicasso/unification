@@ -5,12 +5,19 @@
 
 module MMAlgoA
          (
-           unificationTransform
+           unificationTransform,
+           eliminatableVariablesExist,
+           isInSolvedForm,
+           isUnsolvable,
+           step_a,
+           step_b,
+           termReduction,
+           variableElimination
          ) where
 
 
 import FOTEset           (FOTE, FOTEset,
-                          varOccurMoreThanOnceInRestof,
+                          varOccurAtLeastOnceInRestof,
                           varOccurMoreThanOnceIn)
 import ReadPrintTerms    (Term(..), isVariable, occursAt)
 import Substitution      (applySubs)
@@ -180,9 +187,6 @@ variableEliminationFail = not . all goodFormFOTEPassesOccursCheck . filter foteH
 eliminatableVariablesExist :: FOTEset -> FOTEset -> Bool
 
 -- Pre-requisite:
---       For use by isInSolvedForm:
---           foteHasGoodForm holds for all FOTE in non-empty FOTE set
---       For other uses:
 --           variableEliminationFail False cases
 -- Arguments specification:
 --       First argument is the set of good form FOTEs (maybe empty)
@@ -199,7 +203,7 @@ eliminatableVariablesExist :: FOTEset -> FOTEset -> Bool
 
 eliminatableVariablesExist [] _  = False
 eliminatableVariablesExist (fote:fotes) eSet =
-  (fote `varOccurMoreThanOnceInRestof` eSet) || eliminatableVariablesExist fotes eSet
+  (fote `varOccurAtLeastOnceInRestof` eSet) || eliminatableVariablesExist fotes eSet
 
 --------------------------------------------------------------------------------
 
@@ -210,7 +214,7 @@ isFoteThatContainsEliminatableVarialeIn :: FOTEset -> FOTE -> Bool
 -- Functionality:
 --       Tell whether the FOTE whose left member which is a variable, can be
 --       eliminated from the FOTEset
-isFoteThatContainsEliminatableVarialeIn eSet fote = fote ` varOccurMoreThanOnceInRestof` eSet
+isFoteThatContainsEliminatableVarialeIn eSet fote = fote ` varOccurAtLeastOnceInRestof` eSet
 ---------------------------------------------------------------------------------
 
 variableElimination :: FOTEset -> FOTEset
