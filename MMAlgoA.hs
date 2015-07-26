@@ -203,7 +203,9 @@ eliminatableVariablesExist :: FOTEset -> FOTEset -> Bool
 
 eliminatableVariablesExist [] _  = False
 eliminatableVariablesExist (fote:fotes) eSet =
-  (fote `varOccurAtLeastOnceInRestof` eSet) || eliminatableVariablesExist fotes eSet
+  (fote `varOccurMoreThanOnceIn` eSet) || eliminatableVariablesExist fotes eSet
+--Alternatively:
+--(fote `varOccurAtLeastOnceInRestof` eSet) || eliminatableVariablesExist fotes eSet
 
 --------------------------------------------------------------------------------
 
@@ -214,7 +216,9 @@ isFoteThatContainsEliminatableVarialeIn :: FOTEset -> FOTE -> Bool
 -- Functionality:
 --       Tell whether the FOTE whose left member which is a variable, can be
 --       eliminated from the FOTEset
-isFoteThatContainsEliminatableVarialeIn eSet fote = fote ` varOccurAtLeastOnceInRestof` eSet
+isFoteThatContainsEliminatableVarialeIn eSet fote = fote ` varOccurMoreThanOnceIn` eSet
+                                                --  Alternatively:
+                                                --  fote ` varOccurMoreThanOnceIn` eSet
 ---------------------------------------------------------------------------------
 
 variableElimination :: FOTEset -> FOTEset
