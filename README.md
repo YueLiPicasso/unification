@@ -25,7 +25,11 @@ see both modules [ReadPrintTerms](ReadPrintTerms.hs) and [FOTEset](FOTEset.hs)
 ###For occurs check
 see module [ReadPrintTerms](ReadPrintTerms.hs)
 ###For the main algorithm body
-see module [MMAlgoA](MMAlgoA.hs)
+see module [MMAlgoA](MMAlgoA.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi, which is used by the author. Then you can call the function `unificationTransform`.
+
+An example function call can be found in [testMMAlgoA.txt](testMMAlgoA.txt). 
+
+Another example input is in [testMMAlgoA_2.txt](testMMAlgoA_2.txt). To use this file, you need to first load the module `MMalgoA`, then  
 
 
 ##If you wanted to see the code for test
@@ -46,9 +50,6 @@ See module [UnificationDemo](UnificationDemo.hs)
 
 `MMAlgoA.Buggy.hs`: A copy of module \emph{MMAlgoA} when it had problems. 
 
-`testMMAlgoA.txt` : A hand made equation set used to test Martelli's algorithm.
-
-`testMMAlgoA\_2.txt`: A hand made equation set used to test Martelli's algorithm.
 
 `Test.hs` : Term generator and property checks written by Mr. Chris Warburton.
 
