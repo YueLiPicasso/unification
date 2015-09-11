@@ -81,11 +81,12 @@ To run the demonstration:
 ##If you wanted to know what other files are about, which were not mentioned above
 `terms2read.txt` : List of terms to read, made for a early program.
 
-`Setup.hs` and `unification.cabal` : two files that makes this repository a cabal package for distribution.
+`Setup.hs` and `unification.cabal` : Two files that makes this repository a cabal package for distribution.
 
 `MMAlgoA.Buggy.hs`: A copy of module MMAlgoA when it had problems. 
 
-`LICENSE` : terms and conditions for using the code. 
+`LICENSE` : Terms and conditions for using the code. 
 
 `Test.hs` : Term generator and property checks written by Mr. Chris Warburton.
 
+`.gitignore` : A file that specifies what files shall be ignored when back up the local repositiry to GitHub.
