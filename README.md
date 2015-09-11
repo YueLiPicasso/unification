@@ -40,9 +40,14 @@ See module [UnificationDemo](UnificationDemo.hs)
 
 ##If you wanted to know what other files are about, which were not mentioned above
 `terms2read.txt` : List of terms to read, made for a early program.
-`testUnifyTerms.txt` : Recording of test of Robinson's algorithm using hand made data.\\
-MMAlgoA.Buggy & hs & A copy of module \emph{MMAlgoA} when it had problems. \\
-testMMAlgoA& txt & A hand made equation set used to test Martelli's algorithm.\\
-testMMAlgoA\_2 & txt  & A hand made equation set used to test Martelli's algorithm.\\
-Test& hs & Term generator and property checks written by Mr. Chris Warburton.\\
-\end{tabular}
+
+`testUnifyTerms.txt` : Recording of test of Robinson's algorithm using hand made data.
+
+`MMAlgoA.Buggy.hs`: A copy of module \emph{MMAlgoA} when it had problems. 
+
+`testMMAlgoA.txt` : A hand made equation set used to test Martelli's algorithm.
+
+`testMMAlgoA\_2.txt`: A hand made equation set used to test Martelli's algorithm.
+
+`Test.hs` : Term generator and property checks written by Mr. Chris Warburton.
+
