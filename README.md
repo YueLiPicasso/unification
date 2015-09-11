@@ -48,7 +48,7 @@ To sample the generators:
 
 1. Load the module `GenerateFOTE` into GHCi.
 2. Type GHCi command `sample $ frequency unifiableFOTEGen`, then hit `Enter`. Some randomly generated unifiable first order term equations will be displayed.You can run this command as many times as you like.
-3. Alternative to 2, Type GHCi command `sample $ frequency nUFOTEGen`, then hit `Enter`. Some randomly generated not unifiable first order term equations will be displayed.You can run this command as many times as you like.
+3. Type GHCi command `sample $ frequency nUFOTEGen`, then hit `Enter`. Some randomly generated not unifiable first order term equations will be displayed.You can run this command as many times as you like.
 
 ###For property inspection
 see file [testFunctions.hs](testFunctions.hs)
