@@ -14,7 +14,7 @@ see module [ReadPrintTerms](ReadPrintTerms.hs)
 ###For substitution
 see module [Substitution](Substitution.hs)
 ###For the main algorithm body
-see module [UnifyTerms](UnifyTerms.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi,which is used by the author. Then you can call the function `unifyyTerms`.
+see module [UnifyTerms](UnifyTerms.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi, which is used by the author. Then you can call the function `unifyTerms`.
 
 Example function calls  can be find in [testUnifyTerms.txt](testUnifyTerms.txt)
 
