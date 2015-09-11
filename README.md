@@ -81,8 +81,11 @@ To run the demonstration:
 ##If you wanted to know what other files are about, which were not mentioned above
 `terms2read.txt` : List of terms to read, made for a early program.
 
+`Setup.hs` and `unification.cabal` : two files that makes this repository a cabal package for distribution.
 
 `MMAlgoA.Buggy.hs`: A copy of module \emph{MMAlgoA} when it had problems. 
+
+`LICENSE`
 
 
 `Test.hs` : Term generator and property checks written by Mr. Chris Warburton.
