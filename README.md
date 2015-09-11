@@ -85,8 +85,7 @@ To run the demonstration:
 
 `MMAlgoA.Buggy.hs`: A copy of module MMAlgoA when it had problems. 
 
-`LICENSE` : terms and conditions for using the code. It will be safe if you just download and read the code and run the code on your  own computer.
-
+`LICENSE` : terms and conditions for using the code. 
 
 `Test.hs` : Term generator and property checks written by Mr. Chris Warburton.
 
