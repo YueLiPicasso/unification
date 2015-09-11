@@ -14,7 +14,9 @@ see module [ReadPrintTerms](ReadPrintTerms.hs)
 ###For substitution
 see module [Substitution](Substitution.hs)
 ###For the main algorithm body
-see module [UnifyTerms](UnifyTerms.hs)
+see module [UnifyTerms](UnifyTerms.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi,which is used by the author. Then you can call the function `unifyyTerms`.
+
+Example function calls  can be find in [testUnifyTerms.txt](testUnifyTerms.txt)
 
 ##If you wanted to see the code for Martelli's Algorithm
 
@@ -41,7 +43,6 @@ See module [UnificationDemo](UnificationDemo.hs)
 ##If you wanted to know what other files are about, which were not mentioned above
 `terms2read.txt` : List of terms to read, made for a early program.
 
-`testUnifyTerms.txt` : Recording of test of Robinson's algorithm using hand made data.
 
 `MMAlgoA.Buggy.hs`: A copy of module \emph{MMAlgoA} when it had problems. 
 
