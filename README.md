@@ -6,9 +6,10 @@ Welcome!
 The easiest way is to click "Download Zip" button on the [Repository Home](https://github.com/YueLiPicasso/unification). The downloaded zip file will be named as `unification-master.zip`
 ###Prepare your computer to run the code
 1. After you download the zip file, you would need to find it, unzip it and store the unzipped folder in a directory, say `C:\Users\Yue\Downloads`.
-2. Start your GHCi and change the search path to the unification-mastter folder by typing GHCi command 
+2. Start your GHCi and change the search path to the unification-mastter folder by typing GHCi command
 
- `:cd C:\Users\Yue\Downloads\unification-master`
+ `:cd C:\Users\Yue\Downloads\unification-master\unification-master`
+ 
 
 ##If you wanted to see the code for Robinson's Algorithm
 
