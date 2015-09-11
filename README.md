@@ -42,7 +42,7 @@ Another example input is in [testMMAlgoA_2.txt](testMMAlgoA_2.txt). To use this 
 ##If you wanted to see the code for test
 
 ###For the equation generators
-see module [GenerateFOTE](GenerateFOTE.hs).
+see module [GenerateFOTE](GenerateFOTE.hs). Robinson's agorithm was used in both generators.
 
 To sample the generators: 
 
@@ -51,8 +51,17 @@ To sample the generators:
 3. Type GHCi command `sample $ frequency nUFOTEGen`, then hit `Enter`. Some randomly generated not unifiable first order term equations will be displayed.You can run this command as many times as you like.
 
 ###For property inspection
-see file [testFunctions.hs](testFunctions.hs)
+see file [testFunctions.hs](testFunctions.hs). The comprehensive test was done by functions in the first 4 blocks of function definition. 
 
+To test that the Martelli's algorithm always returns Fail for not solvable equations:
+
+1. Load the `testFunctions.hs` file into GHCi by typing GHCi command `:load testFunctions`.
+2. Type GHCi command `quickCheck prop_notUnify_notUnifiableFOTEMM` then hit `Enter`. You may run this command as many times as you want. 
+
+To test that the Martelli's algorithm always returns correct unifiers for solvable equations:
+
+1. Load the `testFunctions.hs` file into GHCi by typing GHCi command `:load testFunctions`. If the file has already been loaded, then skip this step.
+2. Type GHCi command `quickCheck prop_unifCorrectMM` then hit `Enter`. You may run this command as many times as you want.
 
 ##If you wanted to see the code for project demonstration
 
