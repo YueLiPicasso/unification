@@ -27,20 +27,20 @@ see module [MMAlgoA](MMAlgoA.hs)
 
 
 ##If you wanted to see the code for test
-\label{sec: code for test}
-\begin{description}
-\item[For the equation generators] see module \emph{GenerateFOTE}
-\item[For property inspection] see file \emph{testFunctions.hs}
-\end{description}
 
-\section[Code for Demonstration]{If you wanted to see the code for project demonstration}
-\label{sec: code for demo}
-See module \emph{UnificationDemo}
+###For the equation generators
+see module [GenerateFOTE](GenerateFOTE.hs)
+###For property inspection
+see file [testFunctions.hs](testFunctions.hs)
 
-\section[Other files]{If you wanted to know what other files are about, which were not mentioned in Section~\protect\ref{sec: code for rob},~\protect\ref{sec: code for mar},~\protect\ref{sec: code for test} and~\protect\ref{sec: code for demo}}
-\begin{tabular}{r@{.}l|p{7cm}}
-terms2read & txt & List of terms to read, made for a early program.~~~~~~~~~~~~~~~~~~~~~~~~~\\
-testUnifyTerms & txt & Recording of test of Robinson's algorithm using hand made data.\\
+
+##If you wanted to see the code for project demonstration
+
+See module [UnificationDemo](UnificationDemo.hs)
+
+##If you wanted to know what other files are about, which were not mentioned above
+`terms2read.txt` : List of terms to read, made for a early program.
+`testUnifyTerms.txt` : Recording of test of Robinson's algorithm using hand made data.\\
 MMAlgoA.Buggy & hs & A copy of module \emph{MMAlgoA} when it had problems. \\
 testMMAlgoA& txt & A hand made equation set used to test Martelli's algorithm.\\
 testMMAlgoA\_2 & txt  & A hand made equation set used to test Martelli's algorithm.\\
