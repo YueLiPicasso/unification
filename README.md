@@ -29,7 +29,14 @@ see module [MMAlgoA](MMAlgoA.hs). To run this algorithm please load the module i
 
 An example function call can be found in [testMMAlgoA.txt](testMMAlgoA.txt). 
 
-Another example input is in [testMMAlgoA_2.txt](testMMAlgoA_2.txt). To use this file, you need to first load the module `MMalgoA`, then  
+Another example input is in [testMMAlgoA_2.txt](testMMAlgoA_2.txt). To use this file:
+
+1. Load the module `MMalgoA` to GHCi.
+2. Type command `let eSet=readFile "testMMAlgoA_2.txt"`, then hit `Enter`
+3. Type command `eSet`, then hit `Enter`. You will see the content of the file being displayed.
+4. Type command `let eSet'= (read it)::FOTEset`, then hit `Enter`.
+5. Type command `eSet'`, then hit `Enter`. The equation will be displayed.
+6. Type command `unificationTransform eSet'` to solved the equation.
 
 
 ##If you wanted to see the code for test
