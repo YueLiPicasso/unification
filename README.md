@@ -47,8 +47,8 @@ see module [GenerateFOTE](GenerateFOTE.hs). Robinson's agorithm was used in both
 To sample the generators: 
 
 1. Load the module `GenerateFOTE` into GHCi.
-2. Type GHCi command `sample $ frequency unifiableFOTEGen`, then hit `Enter`. Some randomly generated unifiable first order term equations will be displayed.You can run this command as many times as you like.
-3. Type GHCi command `sample $ frequency nUFOTEGen`, then hit `Enter`. Some randomly generated not unifiable first order term equations will be displayed.You can run this command as many times as you like.
+2. Type GHCi command `sample $ frequency unifiableFOTEGen`, then hit `Enter`. Some randomly generated unifiable first order term equations will be displayed.You can run this command for as many times as you like.
+3. Type GHCi command `sample $ frequency nUFOTEGen`, then hit `Enter`. Some randomly generated not unifiable first order term equations will be displayed.You can run this command for as many times as you like.
 
 ###For property inspection
 see file [testFunctions.hs](testFunctions.hs). The comprehensive test was done by functions in the first 4 blocks of function definition. 
@@ -56,16 +56,21 @@ see file [testFunctions.hs](testFunctions.hs). The comprehensive test was done b
 To test that the Martelli's algorithm always returns Fail for not solvable equations:
 
 1. Load the `testFunctions.hs` file into GHCi by typing GHCi command `:load testFunctions`.
-2. Type GHCi command `quickCheck prop_notUnify_notUnifiableFOTEMM` then hit `Enter`. You may run this command as many times as you want. 
+2. Type GHCi command `quickCheck prop_notUnify_notUnifiableFOTEMM` then hit `Enter`. You may run this command for as many times as you want. 
 
 To test that the Martelli's algorithm always returns correct unifiers for solvable equations:
 
 1. Load the `testFunctions.hs` file into GHCi by typing GHCi command `:load testFunctions`. If the file has already been loaded, then skip this step.
-2. Type GHCi command `quickCheck prop_unifCorrectMM` then hit `Enter`. You may run this command as many times as you want.
+2. Type GHCi command `quickCheck prop_unifCorrectMM` then hit `Enter`. You may run this command for as many times as you want.
 
 ##If you wanted to see the code for project demonstration
 
-See module [UnificationDemo](UnificationDemo.hs)
+See module [UnificationDemo](UnificationDemo.hs). The demonstration can use Robinson's algorithm to generate random solvable or not solvable euqations and pass these equations to Martelli's algorithm to process, then display the  result.
+
+To run the demonstration:
+
+1. Load module `UnificationDemo` into GHCi by typing GHCi command `:load UnificationDemo`.
+2. Type GHCi command `unificationDemo "MM1976A"` then hit `Enter`. You may run this command for as many times as you like. 
 
 ##If you wanted to know what other files are about, which were not mentioned above
 `terms2read.txt` : List of terms to read, made for a early program.
