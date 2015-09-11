@@ -13,17 +13,20 @@ see module [ReadPrintTerms](ReadPrintTerms.hs)
 see module [ReadPrintTerms](ReadPrintTerms.hs)
 ###For substitution
 see module [Substitution](Substitution.hs)
-\item[For the main algorithm body] see module \emph{UnifyTerms}
-\end{description}
-\section[Code for Martelli's Algorithm]{If you wanted to see the code for Martelli's Algorithm}
-\label{sec: code for mar}
-\begin{description}
-\item[For the data type] see both modules \emph{ReadPrintTerms} and \emph{FOTEset}
-\item[For occurs check] see module \emph{ReadPrintTerms}
-\item[For the main algorithm body] see module \emph{MMAlgoA}
-\end{description}
+###For the main algorithm body
+see module [UnifyTerms](UnifyTerms.hs)
 
-\section[Code for Test]{If you wanted to see the code for test}
+##If you wanted to see the code for Martelli's Algorithm
+
+###For the data type
+see both modules [ReadPrintTerms](ReadPrintTerms.hs) and [FOTEset](FOTEset.hs)
+###For occurs check
+see module [ReadPrintTerms](ReadPrintTerms.hs)
+###For the main algorithm body
+see module [MMAlgoA](MMAlgoA.hs)
+
+
+##If you wanted to see the code for test
 \label{sec: code for test}
 \begin{description}
 \item[For the equation generators] see module \emph{GenerateFOTE}
