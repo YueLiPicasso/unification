@@ -3,7 +3,7 @@
 Welcome!
 
 ##Getting the Source Code to you local disc
-You can click "Download Zip" button on the [Repository Home](https://github.com/YueLiPicasso/unification)
+The easiest way is to click "Download Zip" button on the [Repository Home](https://github.com/YueLiPicasso/unification)
 
 ##If you wanted to see the code for Robinson's Algorithm
 
