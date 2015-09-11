@@ -83,7 +83,7 @@ To run the demonstration:
 
 `Setup.hs` and `unification.cabal` : two files that makes this repository a cabal package for distribution.
 
-`MMAlgoA.Buggy.hs`: A copy of module \emph{MMAlgoA} when it had problems. 
+`MMAlgoA.Buggy.hs`: A copy of module MMAlgoA when it had problems. 
 
 `LICENSE` : terms and conditions for using the code. It will be safe if you just download and read the code and run the code on your  own computer.
 
