@@ -77,7 +77,7 @@ Example: Say you want to unify f (X) with f (a) using Robinson's algorithm, you 
 The substitution is what you will get when using Robinson's algorithm to solve your first order logic unification problems.
 Substituting `a` for `X` is displayed as `(a, X)`. `[(a,X),(b,Y),(Z,K)]` stands for the substitution `{a/X,b/Y,Z/K}`.
 
-When the terms can't be unified, you will see the word "Nothing" being displayed otherwise you would see "Just" being displayed follwed by the substitution. So "Nothing" and "Just [(a,X),(b,Y)]" are the typical results you might expect from the program.
+When the terms can't be unified, you will see the word "Nothing" being displayed otherwise you would see "Just" being displayed follwed by the substitution. So "Nothing" and "Just [(a,X),(b,Y)]" are the typical results you might expect from the program. for the given example, the result is "Just [(a,X)]".
 
 ###Using Martelli's Algorithm
 
@@ -94,6 +94,9 @@ Example: Say you want to solve equation set { f (X) = f (a) , b = Y } using Mart
 
 5. To continue calculation for another equation set, simply repeat step 4 (of course you would change the input for `unificationTransform`) 
 
+####Display of result
+
+If the equation set can't be solved, the word "Nothing" would be displayed. If it can be solved, the solved form of the original equation set would be dispplayed following a word "Just", so for the given example,  you would see "Just [(X,a),(Y,b)]", representing the solved form { X=a ,Y=b } of the original equation set  { f (X) = f (a) , b = Y }. 
 ##License
 
 This software uses GNU GPL license, so you can download it, study it, modify it and give others copy of original code or your modified version. When other people obtain a copy of the original or modified software from you, they shall also have the right to study, modify and distribute that software. For details, search "GNU General Public License" online, if you don't want to read the license itself.
