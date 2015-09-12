@@ -2,7 +2,7 @@
 
 ##The algorithms unifies first order logic terms. 
 ##Contents
-System requirements (What you need to install on your computer)
+System requirements (What you need to install on your computer in order to use the software)
 
 Representation of first order logic terms for the algorithms
 
