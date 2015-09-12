@@ -4,7 +4,7 @@ Welcome!
 
 This document is intended to help MSc project examiners browse the code and test run the code on their own computers. If you are a user, or you are an examiner but you  want to see the user guide, please look into the file [UserGuide.md (click me)](UserGuide.md).  
 
-##Getting the Source Code to you local disc
+##Getting the source code to your local disc
 The easiest way is to click "Download Zip" button on the [Repository Home](https://github.com/YueLiPicasso/unification). The downloaded zip file will be named as `unification-master.zip`
 ###Prepare your computer to run the code
 1. After you download the zip file, you would need to find it, unzip it and store the unzipped folder in a directory, say `C:\Users\Yue\Downloads`.
