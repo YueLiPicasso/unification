@@ -54,7 +54,7 @@ Example: `{a = X, Y = b, Z = X}` is represented as
 ###Substitution
 
 The substitution is what you will get when using the software to solve your first order logic unification problems.
-Substituting `a` for `X` is represented as `(a, X)`. `[(a,X),(b,Y),(Z,K)]` stands for the substitution `{a/X,b/Y,Z/K}`.
+Substituting `a` for `X` is displayed as `(a, X)`. `[(a,X),(b,Y),(Z,K)]` stands for the substitution `{a/X,b/Y,Z/K}`.
 
 ##Doing Your Calculation
 
@@ -75,5 +75,23 @@ Example: Say you want to unify f (X) with f (a) using Robinson's algorithm, you 
 
 5. To continue calculation for another pair of terms, simply repeat step 4 (of course you would change the input for `unifyTerms`) 
 
+###Using Martelli's Algorithm
+
+Example: Say you want to solve equation set { f (X) = f (a) , b = Y } using Martelli's algorithm, you do the following things:
+
+1. Start your GHCi.
+
+2. Change the search path of GHCi to the folder where the source code is stored. Say you store the codes under directory `C:\Users\Tom\unification-master\unification-master`. To use this directory as search path, type GHCi command 
+  `:cd C:\Users\Tom\unification-master\unification-master` 
+
+3. Load module `MMAlgoA` by typing GHCi command `:load MMAlgoA`
+
+4. Call function `unificationTransform` followed by the equation set you want to unify. The equation set shall be represented according to the aforementioned way. So you would type `unificationTransform [ ( Function "f" 1 [Variable "X"], Function "f" 1 [Constant "a"] ), (Constant "b", Variable "Y") ]` then hit `Enter`.
+
+5. To continue calculation for another equation set, simply repeat step 4 (of course you would change the input for `unificationTransform`) 
+
+##License
+
+This software uses GNU GPL license, so you can download it, study it, modify it and give others copy of original code or your modified version. When other people obtain a copy of the original or modified software from you, they shall also have the right to study, modify and distribute that software. For details, search "GNU General Public License" online, if you don't want to read the license itself.
 
 
