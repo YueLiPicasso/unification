@@ -1,12 +1,15 @@
 #User Guide
 Information for people who want to use the algorithms to solve their own unification problems. 
 
-##The algorithms works on unifying first order logic terms. 
+##The algorithms unifies first order logic terms. 
 
 ##You need to install 
 GHCi, version >= 7.8.3
 ##Representation of terms
-Constants: `Constant "name_of_constant"`
+
+###Constants
+
+Constant "name_of_constant"
 
 Example 1: Constant `a` is represented as `Constant "a"`.
 
