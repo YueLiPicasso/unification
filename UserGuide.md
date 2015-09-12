@@ -4,7 +4,7 @@
 ##Contents
 System requirements (What you need to install on your computer in order to use the software)
 
-Representation of first order logic terms for the algorithms and the format of substitution as the result
+Term representation
 
 Doing calculation
 
