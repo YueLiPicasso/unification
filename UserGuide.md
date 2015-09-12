@@ -40,6 +40,8 @@ Example 4: Function `g ()`, which has no argument, is represented as `Function "
 
 Example 5: Function `f (g (y), Y )` is represented as `Function "f" 1 [Function "g" 1 [Constant "y"] , Variable "Y"]`
 
+###Equations
 
+(term_1 , term_2)
 
 
