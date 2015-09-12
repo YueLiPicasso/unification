@@ -4,7 +4,7 @@
 ##Contents
 System requirements (What you need to install on your computer in order to use the software)
 
-Representation of first order logic terms for the algorithms
+Representation of first order logic terms for the algorithms and the format of substitution as the result
 
 Doing calculation
 
@@ -50,6 +50,11 @@ Example: f (a) = f (X) is represented as `(Function "f" 1 [Constant "a"], Functi
 Example: `{a = X, Y = b, Z = X}` is represented as 
 
 `[(Constant "a",Variable "X"), (Variable "Y",Constant "b"),(Variable "Z",Variable "X")]` 
+
+###Substitution
+
+The substitution is what you will get when using the software to solve your first order logic unification problems.
+Substituting `a` for `X` is represented as `(a, X)`. `[(a,X),(b,Y),(Z,K)]` stands for the substitution `{a/X,b/Y,Z/K}`.
 
 ##Doing Your Calculation
 
