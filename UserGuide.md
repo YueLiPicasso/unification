@@ -8,6 +8,7 @@ Representation of first order logic terms for the algorithms
 
 Loading modules and doing calculation
 
+License
 ##You need to install 
 GHCi, version >= 7.8.3
 
