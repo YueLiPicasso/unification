@@ -99,6 +99,6 @@ Example: Say you want to solve equation set { f (X) = f (a) , b = Y } using Mart
 If the equation set can't be solved, the word "Nothing" would be displayed. If it can be solved, the solved form of the original equation set would be displayed following a word "Just", so for the given example,  you would see "Just [(X,a),(Y,b)]", representing the solved form { X=a ,Y=b } of the original equation set  { f (X) = f (a) , b = Y }. 
 ##License
 
-This software uses GNU GPL license, so you can download it, study it, modify it and give others copy of original code or your modified version. When other people obtain a copy of the original or modified software from you, they shall also have the right to study, modify and distribute that software. For details, search "GNU General Public License" online, if you don't want to read the license itself.
+This software uses GNU GPL license, so you can download it, study it, modify it and give others copy of original code or your modified version. When other people obtain a copy of the original or modified software from you, they shall also have the right to study, modify and distribute that software. For details, search "GNU General Public License" on Wikipedia, if you don't want to read the license itself.
 
 
