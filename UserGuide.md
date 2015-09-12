@@ -66,7 +66,11 @@ Example: Say you want to unify f (X) with f (a) using Robinson's algorithm, you 
 
 3. Load module `UnifyTerms` by typing GHCi command `:load UnifyTerms`
 
-4. Call function `unifyTerms` followed by two terms you want to unify. Each term shall be represented according to the aforementioned way and be enclosed in a pair of parenthesis. The two enclosed terms and the  function name shall be separated by spaces. So you would type `unifyTerms (Function "f" 1 [Variable "X"]) (Function "f" 1 [Constant "a"])` then hit `Enter`.
+4. Call function `unifyTerms` followed by two terms you want to unify. Each term shall be represented according to the aforementioned way and be enclosed in a pair of parenthesis. The two enclosed terms and the  function name shall be separated by spaces. So you would type
+ 
+`unifyTerms (Function "f" 1 [Variable "X"]) (Function "f" 1 [Constant "a"])` 
+
+then hit `Enter`.
 
 5.To continue calculation for another pair of terms, simply repeat step 4 (of course you would change the input for `unifyTerms`) 
 
