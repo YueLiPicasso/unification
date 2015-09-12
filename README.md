@@ -16,24 +16,24 @@ The easiest way is to click "Download Zip" button on the [Repository Home](https
 ##If you wanted to see the code for Robinson's Algorithm
 
 ###For the data type
-see module [ReadPrintTerms](ReadPrintTerms.hs)
+See module [ReadPrintTerms](ReadPrintTerms.hs)
 ###For occurs check
-see module [ReadPrintTerms](ReadPrintTerms.hs)
+See module [ReadPrintTerms](ReadPrintTerms.hs)
 ###For substitution
-see module [Substitution](Substitution.hs)
+See module [Substitution](Substitution.hs)
 ###For the main algorithm body
-see module [UnifyTerms](UnifyTerms.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi, which is used by the author. Then you can call the function `unifyTerms`.
+See module [UnifyTerms](UnifyTerms.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi, which is used by the author. Then you can call the function `unifyTerms`.
 
 Example function calls  can be find in [testUnifyTerms.txt](testUnifyTerms.txt)
 
 ##If you wanted to see the code for Martelli's Algorithm
 
 ###For the data type
-see both modules [ReadPrintTerms](ReadPrintTerms.hs) and [FOTEset](FOTEset.hs)
+See both modules [ReadPrintTerms](ReadPrintTerms.hs) and [FOTEset](FOTEset.hs)
 ###For occurs check
-see module [ReadPrintTerms](ReadPrintTerms.hs)
+See module [ReadPrintTerms](ReadPrintTerms.hs)
 ###For the main algorithm body
-see module [MMAlgoA](MMAlgoA.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi, which is used by the author. Then you can call the function `unificationTransform`.
+See module [MMAlgoA](MMAlgoA.hs). To run this algorithm please load the module into your Haskell platform such as WinGHCi, which is used by the author. Then you can call the function `unificationTransform`.
 
 An example function call can be found in [testMMAlgoA.txt](testMMAlgoA.txt). 
 
@@ -50,7 +50,7 @@ Another example input is in [testMMAlgoA_2.txt](testMMAlgoA_2.txt). To use this 
 ##If you wanted to see the code for test
 
 ###For the equation generators
-see module [GenerateFOTE](GenerateFOTE.hs). Robinson's agorithm was used in both generators.
+See module [GenerateFOTE](GenerateFOTE.hs). Robinson's agorithm was used in both generators.
 
 To sample the generators: 
 
@@ -59,7 +59,7 @@ To sample the generators:
 3. Type GHCi command `sample $ frequency nUFOTEGen`, then hit `Enter`. Some randomly generated not unifiable first order term equations will be displayed.You can run this command for as many times as you like.
 
 ###For property inspection
-see file [testFunctions.hs](testFunctions.hs). The comprehensive test was done by functions in the first 4 blocks of function definition. 
+See file [testFunctions.hs](testFunctions.hs). The comprehensive test was done by functions in the first 4 blocks of function definition. 
 
 To test that the Martelli's algorithm always returns Fail for not solvable equations:
 
