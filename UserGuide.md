@@ -77,7 +77,7 @@ Example: Say you want to unify f (X) with f (a) using Robinson's algorithm, you 
 The substitution is what you will get when using Robinson's algorithm to solve your first order logic unification problems.
 Substituting `a` for `X` is displayed as `(a, X)`. `[(a,X),(b,Y),(Z,K)]` stands for the substitution `{a/X,b/Y,Z/K}`.
 
-When the terms can't be unified, you will see the word "Nothing" being displayed otherwise you would see "Just" being displayed follwed by the substitution. So "Nothing" and "Just [(a,X),(b,Y)]" are the typical results you might expect from the program. for the given example, the result is "Just [(a,X)]".
+When the terms can't be unified, you will see the word "Nothing" being displayed otherwise you would see "Just" being displayed follwed by the substitution. So "Nothing" and "Just [(a,X),(b,Y)]" are the typical results you might expect from the program. For the given example, the result is "Just [(a,X)]".
 
 ###Using Martelli's Algorithm
 
