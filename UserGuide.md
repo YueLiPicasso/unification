@@ -6,9 +6,7 @@ System requirements (What you need to install on your computer in order to use t
 
 Representation of first order logic terms for the algorithms
 
-Loading modules for your calculation
-
-Example sessions
+Loading modules and doing calculation
 
 ##You need to install 
 GHCi, version >= 7.8.3
@@ -51,4 +49,12 @@ Example: f (a) = f (X) is represented as `(Function "f" 1 [Constant "a"], Functi
 
 Example: `{a = X, Y = b, Z = X}` is represented as 
 
-`[(Constant "a",Variable "X"), (Variable "Y",constant "b"),(Variable "Z",Variable "X")]` 
+`[(Constant "a",Variable "X"), (Variable "Y",Constant "b"),(Variable "Z",Variable "X")]` 
+
+##Loading Modules and Doing Calculation
+
+### Using Robinson's Algorithm
+
+Load module `UnifyTerms`
+
+
