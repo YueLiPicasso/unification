@@ -14,7 +14,6 @@ GHCi, version >= 7.8.3
 
 
 
-
 ##Representation of terms
 
 ###Constants
@@ -52,7 +51,9 @@ Example: `{a = X, Y = b, Z = X}` is represented as
 
 `[(Constant "a",Variable "X"), (Variable "Y",Constant "b"),(Variable "Z",Variable "X")]` 
 
-##Loading Modules and Doing Calculation
+##Doing Your Calculation
+
+After you have  GHCi installed, you would need to download the source code by clicking the "Download Zip" button on the home page. You will get a zip file named as `unification-master.zip`. You would need to unzip it to get a folder with contains the source code. The folder will have a default name `unification-master`, if you open this folder, you will find there is a nested folder which is also named as `unification-master`. This (inconvinience, if any) is not in my control. Open  this folder you will find the source code.  Once you have obtained the source code, you can start using the software to unify your terms. 
 
 ### Using Robinson's Algorithm
 
@@ -60,7 +61,7 @@ Example: Say you want to unify f (X) with f (a) using Robinson's algorithm, you 
 
 1. Start your GHCi.
 
-2. Change the search path of GHCi to the folder where the software is stored. Say you store the software under directory `C:\Users\Tom\unification-master\unification-master`. To use this directory as search path, type GHCi command 
+2. Change the search path of GHCi to the folder where the source code is stored. Say you store the codes under directory `C:\Users\Tom\unification-master\unification-master`. To use this directory as search path, type GHCi command 
   `:cd C:\Users\Tom\unification-master\unification-master` 
 
 3. Load module `UnifyTerms` by typing GHCi command `:load UnifyTerms`
