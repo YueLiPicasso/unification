@@ -6,7 +6,7 @@ System requirements (What you need to install on your computer in order to use t
 
 Representation of first order logic terms for the algorithms
 
-Loading modules and doing calculation
+Doing calculation
 
 License
 ##You need to install 
