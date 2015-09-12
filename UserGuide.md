@@ -56,15 +56,18 @@ Example: `{a = X, Y = b, Z = X}` is represented as
 
 ### Using Robinson's Algorithm
 
-Load module `UnifyTerms`
+Example: Say you want to unify f (X) with f (a) using Robinson's algorithm, you do the following things:
 
-Call function `unifyTerms` followed by two terms you want to unify. Each term shall be represented according to the aforementioned way and be enclosed in a pair of parenthesis.
-
-Example: Say you want to unify f (X) with f (a), you do the following things:
 1. Start your GHCi.
+
 2. Change the search path of GHCi to the folder where the software is stored. Say you store the software under directory `C:\Users\Tom\unification-master\unification-master`. To use this directory as search path, type GHCi command 
   `:cd C:\Users\Tom\unification-master\unification-master` 
-3. type GHCi command ``
+
+3. Load module `UnifyTerms` by typing GHCi command `:load UnifyTerms`
+
+4. Call function `unifyTerms` followed by two terms you want to unify. Each term shall be represented according to the aforementioned way and be enclosed in a pair of parenthesis. The two enclosed terms and the  function name shall be separated by spaces. So you would type `unifyTerms (Function "f" 1 [Variable "X"]) (Function "f" 1 [Constant "a"])` then hit `Enter`.
+
+5.To continue calculation for another pair of terms, simply repeat step 4 (of course you would change the input for `unifyTerms`) 
 
 
 
