@@ -1,6 +1,6 @@
 # Implementing Unification Algorithms in Haskell      
 
-Welcome!
+Welcome! This document is intended to help MSc project examiners browse the code and test run the code on their own computers. If you are a user, or you are an examiner but you  want to see the user guide, please look into the file [UserGuide.md](UserGuide.md) (click me).  
 
 ##Getting the Source Code to you local disc
 The easiest way is to click "Download Zip" button on the [Repository Home](https://github.com/YueLiPicasso/unification). The downloaded zip file will be named as `unification-master.zip`
