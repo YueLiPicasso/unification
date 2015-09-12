@@ -73,7 +73,7 @@ To test that the Martelli's algorithm always returns correct unifiers for solvab
 
 ##If you wanted to see the code for project demonstration
 
-See module [UnificationDemo](UnificationDemo.hs). The demonstration can use Robinson's algorithm to generate random solvable or not solvable euqations and pass these equations to Martelli's algorithm to process, then display the  result.
+See module [UnificationDemo](UnificationDemo.hs). The demonstration can use Robinson's algorithm to generate random solvable or not solvable equations and pass these equations to Martelli's algorithm to process, then display the  result.
 
 To run the demonstration:
 
