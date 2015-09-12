@@ -56,6 +56,8 @@ Example: `{a = X, Y = b, Z = X}` is represented as
 The substitution is what you will get when using the software to solve your first order logic unification problems.
 Substituting `a` for `X` is displayed as `(a, X)`. `[(a,X),(b,Y),(Z,K)]` stands for the substitution `{a/X,b/Y,Z/K}`.
 
+When the terms can't be unified, you will see the word "Nothing" being displayed otherwise you would see "Just" being displayed follwed by the substitution. So "Nothing" and "Just [(a,X),(b,Y)]" are the typical results you might expect from the program.
+
 ##Doing Your Calculation
 
 After you have  GHCi installed, you would need to download the source code by clicking the "Download Zip" button on the home page. You will get a zip file named as `unification-master.zip`. You would need to unzip it to get a folder which contains the source code. The folder will have a default name `unification-master`, if you open this folder, you will find there is a nested folder which is also named as `unification-master`. This (inconvinience, if any) is not in my control. Open  this folder you will find the source code.  Once you have obtained the source code, you can start using the software to unify your terms. 
