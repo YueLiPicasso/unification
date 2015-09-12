@@ -46,7 +46,7 @@ Example: Function `f (g (y), Y )` is represented as `Function "f" 1 [Function "g
 Example: f (a) = f (X) is represented as `(Function "f" 1 [Constant "a"], Function "f" 1 [Variable "X"])`
 
 ###Multiset of Equations 
-[(term_1,term_2),(term_3,term_4)....]
+[(term_1,term_2),(term_3,term_4)...]
 
 Example: `{a = X, Y = b, Z = X}` is represented as 
 
@@ -57,5 +57,14 @@ Example: `{a = X, Y = b, Z = X}` is represented as
 ### Using Robinson's Algorithm
 
 Load module `UnifyTerms`
+
+Call function `unifyTerms` followed by two terms you want to unify. Each term shall be represented according to the aforementioned way and be enclosed in a pair of parenthesis.
+
+Example: Say you want to unify f (X) with f (a), you do the following things:
+1. Start your GHCi.
+2. Change the search path of GHCi to the folder where the software is stored. Say you store the software under directory `C:\Users\Tom\unification-master\unification-master`. To use this directory as search path, type GHCi command 
+  `:cd C:\Users\Tom\unification-master\unification-master` 
+3. type GHCi command ``
+
 
 
