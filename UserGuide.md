@@ -36,7 +36,7 @@ Example: Function `f (a, X)` is represented as `Function "f" 2 [Constant "a" , V
 
 Example: Function `g ()`, which has no argument, is represented as `Function "g" 0 []`
 
-Example: Function `f (g (y), Y )` is represented as `Function "f" 1 [Function "g" 1 [Constant "y"] , Variable "Y"]`
+Example: Function `f (g (y), Y )` is represented as `Function "f" 2 [Function "g" 1 [Constant "y"] , Variable "Y"]`
 
 ###Equations
 
